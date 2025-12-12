@@ -1,0 +1,11 @@
+services:
+  fantasy_store:
+    build: .
+    container_name: fantasy_store
+    volumes:
+      - .:/app
+    ports:
+      - "59900:8000"
+    env_file:
+      - .env
+    command: sleep infinity

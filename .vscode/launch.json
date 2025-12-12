@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: FastAPI Dev",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "fastapi",
+            "args": [
+                "dev",
+                "main.py",
+                "--host",
+                "0.0.0.0",
+                "--port",
+                "8000"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "envFile": "${workspaceFolder}/.env"
+        },
+    ]
+}
