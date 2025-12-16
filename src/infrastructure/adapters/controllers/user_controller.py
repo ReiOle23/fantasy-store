@@ -1,5 +1,5 @@
-from src.infrastructure.adapters.input.schemas.user import RegisterUserRequest, UserResponse
-from src.application.use_cases.user_service import RegisterUserUseCase
+from src.infrastructure.adapters.schemas.user import RegisterUserRequest, UserResponse
+from src.application.adapters.user_service import RegisterUserUseCase
 
 class UserController:
     def __init__(self):

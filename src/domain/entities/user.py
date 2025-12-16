@@ -1,8 +1,7 @@
 from dataclasses import dataclass
 
 @dataclass
-class User():
-    id: int
+class User:
+    id: str
     name: str
-    surname: str
     password: str
