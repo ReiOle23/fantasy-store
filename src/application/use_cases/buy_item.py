@@ -1,0 +1,3 @@
+class BuyItem:
+    def __init__(self):
+        ...
