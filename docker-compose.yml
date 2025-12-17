@@ -8,4 +8,18 @@ services:
       - "59900:8000"
     env_file:
       - .env
+    depends_on:
+      - fantasy_mongodb
     command: sleep infinity
+
+  fantasy_mongodb:
+      image: mongo:latest
+      container_name: fantasy_mongodb
+      volumes:
+        - ./docker_volumes/mongodb:/data/db
+      environment:
+        - MONGO_INITDB_ROOT_USERNAME=fantasy
+        - MONGO_INITDB_ROOT_PASSWORD=fantasy
+        - MONGO_INITDB_DATABASE=fantasy_back
+      ports:
+        - "27017:27017"
