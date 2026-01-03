@@ -1,5 +1,12 @@
 {
-    "User": {},
-    "Book": {},
-    "Library": {}
+    "User": {
+        "6730e1e3-1e88-42ef-8425-c855de8b6ba2": {
+            "name": "testuser",
+            "password": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+            "id": "6730e1e3-1e88-42ef-8425-c855de8b6ba2",
+            "token": "e9e87feb-5447-4e33-9804-eb58576d37e8"
+        }
+    },
+    "Item": {},
+    "Store": {}
 }

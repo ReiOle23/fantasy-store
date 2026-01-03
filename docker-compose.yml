@@ -11,6 +11,9 @@ services:
     depends_on:
       - fantasy_mongodb
     command: sleep infinity
+    working_dir: /app
+    environment:
+      - PYTHONPATH=/app
 
   fantasy_mongodb:
       image: mongo:latest

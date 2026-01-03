@@ -1,19 +1,32 @@
 from src.domain.entities.user import User
 from src.infrastructure.database import Database
-import uuid, hashlib
+import hashlib
 from src.application.ports.repositories.user_repository import UserRepository
+from dataclasses import asdict
 
-class RegisterUserUseCase(UserRepository):
+class UserService(UserRepository):
     def __init__(self):
         self.db = Database
+        
+    def _encode_password(self, password: str) -> str:
+        return hashlib.sha256(password.encode("utf-8")).hexdigest()
+    
+    def _save_user(self, *args, **kwargs) -> dict:
+        new_user = User(*args, **kwargs)
+        self.db.save_obj(new_user)
+        return asdict(new_user)
 
-    def execute(self, name: str, password: str) -> dict:
-        # check uniqueness by name
+    def create(self, name: str, password: str) -> dict:
         if self.db.find_by_field("User", "name", name):
             raise ValueError("user already exists")
-        # create user and persist
-        new_id = str(uuid.uuid4())
-        password_hash = hashlib.sha256(password.encode("utf-8")).hexdigest()
-        new_user = User(id=new_id, name=name, password=password_hash)
-        self.db.save_obj(new_user)
-        return {"id": new_user.id, "name": new_user.name}
+        
+        password_hash = self._encode_password(password)
+        return self._save_user(name, password_hash)
+
+    def login(self, name: str, password: str) -> dict:
+        user_exists = self.db.find_by_field("User", "name", name)
+        if user_exists:
+            password_hash = self._encode_password(password)
+            if user_exists["password"] == password_hash:
+                return user_exists
+        raise ValueError("Invalid credentials")

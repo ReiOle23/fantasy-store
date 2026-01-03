@@ -1,6 +1,6 @@
 # from typing import Union
 from fastapi import FastAPI
-from src.infrastructure.adapters.input.routes import item_routes, user_routes
+from src.infrastructure.adapters.routes import item_routes, user_routes
 
 app = FastAPI()
 
