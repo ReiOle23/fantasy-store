@@ -41,6 +41,14 @@ class Database:
 		return data[model_type][str(id)]
 
 	@classmethod
+	def get_all(cls, model_type: str) -> Any:
+		cls._ensure_file_exists()
+		with open(cls.database_url + cls.database_file, "r") as json_file:
+			data = json.load(json_file)
+		return data[model_type]
+
+
+	@classmethod
 	def find_by_field(cls, model_type: str, field: str, value: Any) -> Optional[dict]:
 		cls._ensure_file_exists()
 		with open(cls.database_url + cls.database_file, "r") as json_file:

@@ -1,5 +1,356 @@
 {
     "User": {},
-    "Item": {},
+    "Item": {
+        "a1b2c3d4-e5f6-7890-abcd-ef1234567890": {
+            "name": "Elven Bow of the Woodland Realm",
+            "quantity": 15,
+            "price": 850,
+            "owner": null,
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+        },
+        "b2c3d4e5-f6a7-8901-bcde-f12345678901": {
+            "name": "Mithril Chain Mail",
+            "quantity": 8,
+            "price": 2500,
+            "owner": null,
+            "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901"
+        },
+        "c3d4e5f6-a7b8-9012-cdef-123456789012": {
+            "name": "Sword of the Witch-king",
+            "quantity": 3,
+            "price": 3200,
+            "owner": null,
+            "id": "c3d4e5f6-a7b8-9012-cdef-123456789012"
+        },
+        "d4e5f6a7-b8c9-0123-def1-234567890123": {
+            "name": "Staff of Gandalf the Grey",
+            "quantity": 2,
+            "price": 5000,
+            "owner": null,
+            "id": "d4e5f6a7-b8c9-0123-def1-234567890123"
+        },
+        "e5f6a7b8-c9d0-1234-ef12-345678901234": {
+            "name": "Orcish Battle Axe",
+            "quantity": 25,
+            "price": 450,
+            "owner": null,
+            "id": "e5f6a7b8-c9d0-1234-ef12-345678901234"
+        },
+        "f6a7b8c9-d0e1-2345-f123-456789012345": {
+            "name": "Dwarven War Hammer",
+            "quantity": 12,
+            "price": 780,
+            "owner": null,
+            "id": "f6a7b8c9-d0e1-2345-f123-456789012345"
+        },
+        "a7b8c9d0-e1f2-3456-1234-567890123456": {
+            "name": "Ring of Invisibility",
+            "quantity": 1,
+            "price": 10000,
+            "owner": null,
+            "id": "a7b8c9d0-e1f2-3456-1234-567890123456"
+        },
+        "b8c9d0e1-f2a3-4567-2345-678901234567": {
+            "name": "Palantír Seeing Stone",
+            "quantity": 2,
+            "price": 8500,
+            "owner": null,
+            "id": "b8c9d0e1-f2a3-4567-2345-678901234567"
+        },
+        "c9d0e1f2-a3b4-5678-3456-789012345678": {
+            "name": "Cloak of Lórien",
+            "quantity": 20,
+            "price": 650,
+            "owner": null,
+            "id": "c9d0e1f2-a3b4-5678-3456-789012345678"
+        },
+        "d0e1f2a3-b4c5-6789-4567-890123456789": {
+            "name": "Rohirrim Spear",
+            "quantity": 30,
+            "price": 320,
+            "owner": null,
+            "id": "d0e1f2a3-b4c5-6789-4567-890123456789"
+        },
+        "e1f2a3b4-c5d6-7890-5678-901234567890": {
+            "name": "Gondorian Shield",
+            "quantity": 18,
+            "price": 580,
+            "owner": null,
+            "id": "e1f2a3b4-c5d6-7890-5678-901234567890"
+        },
+        "f2a3b4c5-d6e7-8901-6789-012345678901": {
+            "name": "Athelas Healing Herb",
+            "quantity": 50,
+            "price": 120,
+            "owner": null,
+            "id": "f2a3b4c5-d6e7-8901-6789-012345678901"
+        },
+        "a3b4c5d6-e7f8-9012-7890-123456789012": {
+            "name": "Lembas Bread",
+            "quantity": 45,
+            "price": 85,
+            "owner": null,
+            "id": "a3b4c5d6-e7f8-9012-7890-123456789012"
+        },
+        "b4c5d6e7-f8a9-0123-8901-234567890123": {
+            "name": "Miruvor Cordial",
+            "quantity": 22,
+            "price": 350,
+            "owner": null,
+            "id": "b4c5d6e7-f8a9-0123-8901-234567890123"
+        },
+        "c5d6e7f8-a9b0-1234-9012-345678901234": {
+            "name": "Dragon Scale Armor",
+            "quantity": 5,
+            "price": 4200,
+            "owner": null,
+            "id": "c5d6e7f8-a9b0-1234-9012-345678901234"
+        },
+        "d6e7f8a9-b0c1-2345-0123-456789012345": {
+            "name": "Balrog Whip Fragment",
+            "quantity": 4,
+            "price": 1800,
+            "owner": null,
+            "id": "d6e7f8a9-b0c1-2345-0123-456789012345"
+        },
+        "e7f8a9b0-c1d2-3456-1234-567890123456": {
+            "name": "Silmaril Shard",
+            "quantity": 1,
+            "price": 15000,
+            "owner": null,
+            "id": "e7f8a9b0-c1d2-3456-1234-567890123456"
+        },
+        "f8a9b0c1-d2e3-4567-2345-678901234567": {
+            "name": "Barrow-blade Dagger",
+            "quantity": 28,
+            "price": 420,
+            "owner": null,
+            "id": "f8a9b0c1-d2e3-4567-2345-678901234567"
+        },
+        "a9b0c1d2-e3f4-5678-3456-789012345678": {
+            "name": "Uruk-hai Scimitar",
+            "quantity": 35,
+            "price": 380,
+            "owner": null,
+            "id": "a9b0c1d2-e3f4-5678-3456-789012345678"
+        },
+        "b0c1d2e3-f4a5-6789-4567-890123456789": {
+            "name": "Wizard's Fireworks",
+            "quantity": 40,
+            "price": 95,
+            "owner": null,
+            "id": "b0c1d2e3-f4a5-6789-4567-890123456789"
+        },
+        "c1d2e3f4-a5b6-7890-5678-901234567890": {
+            "name": "Númenórean Longsword",
+            "quantity": 10,
+            "price": 1450,
+            "owner": null,
+            "id": "c1d2e3f4-a5b6-7890-5678-901234567890"
+        },
+        "d2e3f4a5-b6c7-8901-6789-012345678901": {
+            "name": "Ent Draught",
+            "quantity": 16,
+            "price": 890,
+            "owner": null,
+            "id": "d2e3f4a5-b6c7-8901-6789-012345678901"
+        },
+        "e3f4a5b6-c7d8-9012-7890-123456789012": {
+            "name": "Black Arrow of Bard",
+            "quantity": 6,
+            "price": 2800,
+            "owner": null,
+            "id": "e3f4a5b6-c7d8-9012-7890-123456789012"
+        },
+        "f4a5b6c7-d8e9-0123-8901-234567890123": {
+            "name": "Gimli's Throwing Axe",
+            "quantity": 14,
+            "price": 720,
+            "owner": null,
+            "id": "f4a5b6c7-d8e9-0123-8901-234567890123"
+        },
+        "a5b6c7d8-e9f0-1234-9012-345678901234": {
+            "name": "Legolas' Quiver",
+            "quantity": 11,
+            "price": 560,
+            "owner": null,
+            "id": "a5b6c7d8-e9f0-1234-9012-345678901234"
+        },
+        "b6c7d8e9-f0a1-2345-0123-456789012345": {
+            "name": "Aragorn's Ranger Cloak",
+            "quantity": 9,
+            "price": 980,
+            "owner": null,
+            "id": "b6c7d8e9-f0a1-2345-0123-456789012345"
+        },
+        "c7d8e9f0-a1b2-3456-1234-567890123456": {
+            "name": "Sauron's Mace Replica",
+            "quantity": 7,
+            "price": 1620,
+            "owner": null,
+            "id": "c7d8e9f0-a1b2-3456-1234-567890123456"
+        },
+        "d8e9f0a1-b2c3-4567-2345-678901234567": {
+            "name": "Morgul Blade (Cursed)",
+            "quantity": 5,
+            "price": 2100,
+            "owner": null,
+            "id": "d8e9f0a1-b2c3-4567-2345-678901234567"
+        },
+        "e9f0a1b2-c3d4-5678-3456-789012345678": {
+            "name": "Troll's Club",
+            "quantity": 13,
+            "price": 540,
+            "owner": null,
+            "id": "e9f0a1b2-c3d4-5678-3456-789012345678"
+        },
+        "f0a1b2c3-d4e5-6789-4567-890123456789": {
+            "name": "Shelob's Poison Vial",
+            "quantity": 19,
+            "price": 1350,
+            "owner": null,
+            "id": "f0a1b2c3-d4e5-6789-4567-890123456789"
+        },
+        "a1b2c3d4-e5f6-7890-5678-901234567890": {
+            "name": "Arwen's Evening Star Pendant",
+            "quantity": 8,
+            "price": 3400,
+            "owner": null,
+            "id": "a1b2c3d4-e5f6-7890-5678-901234567890"
+        },
+        "b2c3d4e5-f6a7-8901-6789-012345678901": {
+            "name": "Boromir's Horn of Gondor",
+            "quantity": 3,
+            "price": 4800,
+            "owner": null,
+            "id": "b2c3d4e5-f6a7-8901-6789-012345678901"
+        },
+        "c3d4e5f6-a7b8-9012-7890-123456789012": {
+            "name": "Galadriel's Phial",
+            "quantity": 4,
+            "price": 6200,
+            "owner": null,
+            "id": "c3d4e5f6-a7b8-9012-7890-123456789012"
+        },
+        "d4e5f6a7-b8c9-0123-8901-234567890123": {
+            "name": "Saruman's Palantír",
+            "quantity": 1,
+            "price": 9500,
+            "owner": null,
+            "id": "d4e5f6a7-b8c9-0123-8901-234567890123"
+        },
+        "e5f6a7b8-c9d0-1234-9012-345678901234": {
+            "name": "Warg Rider Saddle",
+            "quantity": 21,
+            "price": 670,
+            "owner": null,
+            "id": "e5f6a7b8-c9d0-1234-9012-345678901234"
+        },
+        "f6a7b8c9-d0e1-2345-0123-456789012345": {
+            "name": "Cave Troll Hide Armor",
+            "quantity": 17,
+            "price": 1120,
+            "owner": null,
+            "id": "f6a7b8c9-d0e1-2345-0123-456789012345"
+        },
+        "a7b8c9d0-e1f2-3456-1234-567890123453": {
+            "name": "Nazgûl Sword",
+            "quantity": 6,
+            "price": 2650,
+            "owner": null,
+            "id": "a7b8c9d0-e1f2-3456-1234-567890123453"
+        },
+        "b8c9d0e1-f2a3-4567-2345-678901234522": {
+            "name": "Hobbit Pipeweed Pouch",
+            "quantity": 50,
+            "price": 45,
+            "owner": null,
+            "id": "b8c9d0e1-f2a3-4567-2345-678901234522"
+        },
+        "c9d0e1f2-a3b4-5678-3456-789012345611": {
+            "name": "Merry's Dagger of Westernesse",
+            "quantity": 12,
+            "price": 890,
+            "owner": null,
+            "id": "c9d0e1f2-a3b4-5678-3456-789012345611"
+        },
+        "d0e1f2a3-b4c5-6789-4567-890123456724": {
+            "name": "Pippin's Guard Uniform",
+            "quantity": 15,
+            "price": 420,
+            "owner": null,
+            "id": "d0e1f2a3-b4c5-6789-4567-890123456724"
+        },
+        "e1f2a3b4-c5d6-7890-5678-901234567800": {
+            "name": "Sam's Cooking Pot",
+            "quantity": 32,
+            "price": 180,
+            "owner": null,
+            "id": "e1f2a3b4-c5d6-7890-5678-901234567800"
+        },
+        "f2a3b4c5-d6e7-8901-6789-012345678909": {
+            "name": "Frodo's Mithril Vest",
+            "quantity": 2,
+            "price": 7800,
+            "owner": null,
+            "id": "f2a3b4c5-d6e7-8901-6789-012345678909"
+        },
+        "a3b4c5d6-e7f8-9012-7890-123456789019": {
+            "name": "Bilbo's Walking Stick",
+            "quantity": 24,
+            "price": 310,
+            "owner": null,
+            "id": "a3b4c5d6-e7f8-9012-7890-123456789019"
+        },
+        "b4c5d6e7-f8a9-0123-8901-234567890120": {
+            "name": "Thorin's Oak Shield",
+            "quantity": 9,
+            "price": 1580,
+            "owner": null,
+            "id": "b4c5d6e7-f8a9-0123-8901-234567890120"
+        },
+        "c5d6e7f8-a9b0-1234-9012-345678901235": {
+            "name": "Fili's Sword",
+            "quantity": 11,
+            "price": 940,
+            "owner": null,
+            "id": "c5d6e7f8-a9b0-1234-9012-345678901235"
+        },
+        "d6e7f8a9-b0c1-2345-0123-456789012322": {
+            "name": "Kili's Bow",
+            "quantity": 13,
+            "price": 870,
+            "owner": null,
+            "id": "d6e7f8a9-b0c1-2345-0123-456789012322"
+        },
+        "e7f8a9b0-c1d2-3456-1234-567890123457": {
+            "name": "Bofur's Mattock",
+            "quantity": 18,
+            "price": 620,
+            "owner": null,
+            "id": "e7f8a9b0-c1d2-3456-1234-567890123457"
+        },
+        "f8a9b0c1-d2e3-4567-2345-678901234566": {
+            "name": "Dori's Flute",
+            "quantity": 27,
+            "price": 240,
+            "owner": null,
+            "id": "f8a9b0c1-d2e3-4567-2345-678901234566"
+        },
+        "a9b0c1d2-e3f4-5678-3456-789012345655": {
+            "name": "Nori's Slingshot",
+            "quantity": 38,
+            "price": 155,
+            "owner": null,
+            "id": "a9b0c1d2-e3f4-5678-3456-789012345655"
+        },
+        "b0c1d2e3-f4a5-6789-4567-890123456733": {
+            "name": "Glóin's Battle Axe",
+            "quantity": 10,
+            "price": 1280,
+            "owner": null,
+            "id": "b0c1d2e3-f4a5-6789-4567-890123456733"
+        }
+    },
     "Store": {}
 }
