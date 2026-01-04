@@ -7,7 +7,7 @@ def testuser():
     return user_service.create("testuser", "password123")
 
 def test_user_create(testuser):
-    assert testuser["name"] == "testuser"
+    assert testuser.name == "testuser"
     
 def test_user_login(testuser):
     user_service = UserService()

@@ -1,12 +1,15 @@
 from dataclasses import dataclass, field
+from typing import Optional, TYPE_CHECKING
 import uuid
-from src.domain.entities.user import User
+
+if TYPE_CHECKING:
+    from src.domain.entities.user import User
 
 @dataclass
 class Item():
     name: str
     quantity:int
     price:int
-    owner: User
     id: str = field(default=str(uuid.uuid4()))
+    owner: Optional['User'] = None
     
