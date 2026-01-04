@@ -15,7 +15,7 @@ class ItemService(ItemRepository):
     def get_by_id(self, item_id: str) -> Item:
         return self.db.get_obj(Item, item_id)
 
-    def buy_item_sync(self, item_id: str, user_id: str, user_token: str) -> Item:
+    def _buy_item_sync(self, item_id: str, user_id: str, user_token: str) -> Item:
         with self._lock:
             item_obj = self.db.get_obj(Item, item_id)
             if item_obj is None:
@@ -34,5 +34,5 @@ class ItemService(ItemRepository):
             return item_obj
 
     async def buy_item(self, item_id: str, user_id: str, user_token: str) -> Item:
-        return await asyncio.to_thread(self.buy_item_sync, item_id, user_id, user_token)
+        return await asyncio.to_thread(self._buy_item_sync, item_id, user_id, user_token)
     

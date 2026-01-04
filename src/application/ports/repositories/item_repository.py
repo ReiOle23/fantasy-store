@@ -11,5 +11,5 @@ class ItemRepository(ABC):
         ...
         
     @abstractmethod
-    def buy_item(self, id: int, user_id:str, user_token: str) -> Item:
+    async def buy_item(self, id: int, user_id:str, user_token: str) -> Item:
         ...

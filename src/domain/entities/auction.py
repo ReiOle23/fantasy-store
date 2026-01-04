@@ -9,7 +9,6 @@ if TYPE_CHECKING:
 
 @dataclass
 class Auction():
-    name: str
     item: 'Item'
     start_date: datetime
     end_date: datetime
