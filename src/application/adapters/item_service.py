@@ -35,3 +35,4 @@ class ItemService(ItemRepository):
 
     async def buy_item(self, item_id: str, user_id: str, user_token: str) -> Item:
         return await asyncio.to_thread(self.buy_item_sync, item_id, user_id, user_token)
+    
