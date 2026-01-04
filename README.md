@@ -20,6 +20,9 @@ MongoDB could be used as a complement for highly variable product catalogs or re
 <!--  -->
 In this example we don't have payment nor inventory so mongoDB is best option
 
+To enter Mongo instance:
+- docker exec -it fantasy_mongodb mongosh "mongodb://fantasy:fantasy@localhost:27017/fantasy_back?authSource=admin"
+
 ## Arquitecture
 Arquitecture used is a monolitic by layers and using Hexagonal
 

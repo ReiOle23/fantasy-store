@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 @dataclass
 class Bid():
     user: 'User'
-    price: float
+    price: int
     created_at: datetime = field(default_factory=lambda: datetime.now())
     updated_at: datetime = field(default_factory=lambda: datetime.now())
     id: str = field(default=str(uuid.uuid4()))
