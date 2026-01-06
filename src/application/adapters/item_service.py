@@ -26,41 +26,48 @@ class ItemService(ItemRepository):
     
     def check_valid_item(self, item_obj: Item):
         if item_obj is None:
-            raise ValueError("Item not found")
+            raise Exception("Item not found")
         if item_obj.owner is not None:
-            raise ValueError("Item already owned")
+            raise Exception("Item already owned")
+        if item_obj.quantity <= 0:
+            raise Exception("Item out of stock")
         
     def check_valid_user(self, user_obj: User, user_token: str):
         if user_obj is None:
-            raise ValueError("User not found")
+            raise Exception("User not found")
         if user_obj.token != user_token:
-            raise ValueError("Invalid user token")
+            raise Exception("Invalid user token")
 
-    async def update_user_money(self, user_obj: User, item_obj: Item, quantity: int):
-        total_price = item_obj.price * quantity
-        if total_price > user_obj.money:
-            raise Exception("Not enough money to buy the item(s)")
-                    
+    async def update_user_money(self, user_obj: User, item_obj: Item, quantity: int, total_price: int):             
         user_obj.money -= total_price
         user_obj.add_item(self._duplicate_item(item_obj, user_obj.id, quantity))
         await self.db.save_obj(user_obj)
 
     async def buy_item(self, item_id: str, user_id: str, user_token: str, quantity: int = 1) -> Item:
-        client = self.db.client
-        async with await client.start_session() as s:
-            async with s.start_transaction():
-                user_obj = await self.db.get_obj(User, user_id)
-                self.check_valid_user(user_obj, user_token)
+        user_obj = await self.db.get_obj(User, user_id)
+        self.check_valid_user(user_obj, user_token)
+
+        item_obj = await self.db.get_obj(Item, item_id)
+        self.check_valid_item(item_obj)
         
-                item_obj = await self.db.get_obj(Item, item_id)
-                self.check_valid_item(item_obj)
+        total_price = item_obj.price * quantity
+        if total_price > user_obj.money:
+            raise Exception("Not enough money to buy the item(s)")
                 
-                await self.update_user_money(user_obj, item_obj, quantity)
-                item_obj.quantity -= quantity
-                if item_obj.quantity <= 0:
-                    await self.db.remove_obj(item_obj)
-                else:
-                    await self.db.save_obj(item_obj)
-                
+        result = await self.db.update_one(
+            Item,
+            {"_id": item_id, "quantity": {"$gte": quantity}},
+            {"$inc": {"quantity": -quantity}}
+        )
+        if result.modified_count == 0:
+            raise Exception("Item sold out or insufficient quantity")
+        
+        await self.update_user_money(user_obj, item_obj, quantity, total_price)
+        
+        # Check if we need to delete the item
+        updated_item = await self.db.get_obj(Item, item_id)
+        if updated_item.quantity <= 0:
+            await self.db.remove_obj(updated_item)
+        
         return item_obj
         

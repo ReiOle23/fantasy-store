@@ -121,9 +121,17 @@ class MongoDB:
         await collection.replace_one(
             {"_id": obj_dict["_id"]},
             obj_dict,
-            upsert=True
+            upsert=True,
         )
         
+    @classmethod
+    async def update_one(cls, model: T, filter_query: dict, update_query: dict):
+        """Remove object"""
+        await cls.connect()
+        collection = cls._get_collection(model.__name__)
+
+        return await collection.update_one(filter_query, update_query)
+
     @classmethod
     async def remove_obj(cls, obj: T):
         """Remove object"""

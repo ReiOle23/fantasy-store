@@ -53,6 +53,7 @@ async def test_buy_item_3_times(item_service, user_service, create_user, create_
     updated_user = await MongoDB.get_obj(User, user.id)
     assert len(updated_user.items) == 3
 
+@pytest.mark.repeat(5)
 @pytest.mark.asyncio
 async def test_three_users_buy_same_item(item_service, user_service, create_user, create_item):
     users = [await create_user(f"user{i}") for i in range(3)]
@@ -61,28 +62,32 @@ async def test_three_users_buy_same_item(item_service, user_service, create_user
         await user_service.add_money(u.id, u.token, 1000)
         
     item = await create_item("splendid_item", 1, 200)
-    # tasks = [asyncio.create_task(item_service.buy_item(item.id, u.id, u.token)) for u in users]
-    # results = await asyncio.gather(*tasks, return_exceptions=True)
+    tasks = [asyncio.create_task(item_service.buy_item(item.id, u.id, u.token)) for u in users]
+    results = await asyncio.gather(*tasks, return_exceptions=True)
 
-    # successes = [r for r in results if not isinstance(r, Exception)]
-    # failures = [r for r in results if isinstance(r, Exception)]
+    successes = [r for r in results if not isinstance(r, Exception)]
+    failures = [r for r in results if isinstance(r, Exception)]
 
-    # assert len(successes) == 1
-    # assert all(isinstance(e, ValueError) for e in failures)
+    assert len(successes) == 1
+    assert all(isinstance(e, Exception) for e in failures)
 
-    # final = await item_service.get_by_id(item.id)
-    # assert final.owner == successes[0].owner
+    final = await item_service.get_by_id(item.id)
+    assert final == None
 
-@pytest.mark.skip(reason="Needs money implementation in User entity")
+
 @pytest.mark.asyncio
-async def test_three_users_buy_different_items(item_service, create_user, create_item):
-    users = [create_user(f"user{i}") for i in range(3)]
-    items = [create_item() for _ in range(3)]
+async def test_three_users_buy_different_items(item_service, user_service, create_user, create_item):
+    users = [await create_user(f"user{i}") for i in range(3)]
+    for u in users:
+        await user_service.add_money(u.id, u.token, 1000)
+        
+    items = [await create_item(f"item{_}", 2, 200) for _ in range(3)]
     tasks = [asyncio.create_task(item_service.buy_item(it.id, u.id, u.token)) for it, u in zip(items, users)]
     results = await asyncio.gather(*tasks, return_exceptions=True)
 
     assert all(not isinstance(r, Exception) for r in results)
 
-    for it, u in zip(items, users):
-        final = item_service.get_by_id(it.id)
-        assert final.owner == u.id
+    for u in users:
+        updated_user = await MongoDB.get_obj(User, u.id)
+        assert len(updated_user.items) == 1
+        

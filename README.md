@@ -22,6 +22,7 @@ In this example we don't have payment nor inventory so mongoDB is best option
 
 To enter Mongo instance:
 - docker exec -it fantasy_mongodb mongosh "mongodb://fantasy:fantasy@localhost:27017/fantasy_back?authSource=admin"
+- use fantasy_back_test
 
 ## Arquitecture
 Arquitecture used is a monolitic by layers and using Hexagonal
@@ -30,3 +31,7 @@ Arquitecture used is a monolitic by layers and using Hexagonal
 Celery(orquestrator of tasks) with Redis(database cache memory, very fast) you can have sincronous system that
 replicates an async by executing tasks of the celery in order and by getting the info from the Redis.
 <!--  -->
+
+## Tests
+To run single tests:
+- pytest -s tests/application.tests/test_item.py
