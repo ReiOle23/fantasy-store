@@ -14,3 +14,5 @@ class Auction():
     end_date: datetime
     id: str = field(default=str(uuid.uuid4()))
     bids: list['Bid'] = field(default_factory=list)
+    highest_bid: str = None,
+    

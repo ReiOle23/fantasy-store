@@ -5,7 +5,7 @@ from datetime import datetime
 
 class AuctionRepository(ABC):
     @abstractmethod
-    def create_auction(self, item: Item, start_date: datetime, end_date: datetime) -> Auction:
+    async def create_auction(self, item: Item, start_date: datetime, end_date: datetime) -> Auction:
         ...
         
     @abstractmethod

@@ -38,9 +38,10 @@ class ItemService(ItemRepository):
         if user_obj.token != user_token:
             raise Exception("Invalid user token")
 
-    async def update_user_money(self, user_obj: User, item_obj: Item, quantity: int, total_price: int):             
+    async def process_purchase(self, user_obj: User, item_obj: Item, quantity: int, total_price: int):             
         user_obj.money -= total_price
         user_obj.add_item(self._duplicate_item(item_obj, user_obj.id, quantity))
+        # TODO should be atomic because if fails save_obj, then user_obj money is deducted but item not added
         await self.db.save_obj(user_obj)
 
     async def buy_item(self, item_id: str, user_id: str, user_token: str, quantity: int = 1) -> Item:
@@ -62,7 +63,7 @@ class ItemService(ItemRepository):
         if result.modified_count == 0:
             raise Exception("Item sold out or insufficient quantity")
         
-        await self.update_user_money(user_obj, item_obj, quantity, total_price)
+        await self.process_purchase(user_obj, item_obj, quantity, total_price)
         
         # Check if we need to delete the item
         updated_item = await self.db.get_obj(Item, item_id)

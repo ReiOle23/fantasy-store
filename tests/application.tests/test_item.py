@@ -74,7 +74,6 @@ async def test_three_users_buy_same_item(item_service, user_service, create_user
     final = await item_service.get_by_id(item.id)
     assert final == None
 
-
 @pytest.mark.asyncio
 async def test_three_users_buy_different_items(item_service, user_service, create_user, create_item):
     users = [await create_user(f"user{i}") for i in range(3)]
