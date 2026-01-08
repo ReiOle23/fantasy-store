@@ -7,6 +7,9 @@ class Item():
     name: str
     quantity:int
     price:int
-    id: str = field(default=str(uuid.uuid4()))
+    id: str = field(default_factory=lambda: str(uuid.uuid4()))
     owner: Optional[str] = None
     
+    @classmethod
+    def from_dict(cls, data: dict) -> 'Item':
+        return cls(**data)

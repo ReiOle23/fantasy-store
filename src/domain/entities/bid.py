@@ -12,4 +12,8 @@ class Bid():
     price: int
     created_at: datetime = field(default_factory=lambda: datetime.now())
     updated_at: datetime = field(default_factory=lambda: datetime.now())
-    id: str = field(default=str(uuid.uuid4()))
+    id: str = field(default_factory=lambda: str(uuid.uuid4()))
+
+    @classmethod
+    def from_dict(cls, data: dict) -> 'Bid':
+        return cls(**data)

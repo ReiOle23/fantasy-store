@@ -66,7 +66,7 @@ class MongoDB:
             await cls.database[collection_name].delete_many({})
 
     @classmethod
-    async def get_obj(cls, model: T, id: str) -> Any:
+    async def get_obj(cls, model: T, id: str) -> T | None:
         """Get object by ID"""
         await cls.connect()
         collection = cls._get_collection(model.__name__)
@@ -77,6 +77,10 @@ class MongoDB:
         
         # Convert _id to id for dataclass
         obj_data["id"] = obj_data.pop("_id")
+        
+        # Use from_dict if available
+        if hasattr(model, 'from_dict'):
+            return model.from_dict(obj_data)
         
         return model(**obj_data)
 
