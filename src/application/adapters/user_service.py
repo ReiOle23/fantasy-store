@@ -17,7 +17,7 @@ class UserService(UserRepository):
     
     async def create(self, name: str, password: str) -> User:
         if await self.db.find_by_field(User, "name", name):
-            raise ValueError("user already exists")
+            raise Exception("user already exists")
         
         password_hash = self._encode_password(password)
         return await self._save_user(name, password_hash)
@@ -27,13 +27,13 @@ class UserService(UserRepository):
         password_hash = self._encode_password(password)
         if user_exists and user_exists.password == password_hash:
             return user_exists
-        raise ValueError("Invalid credentials")
+        raise Exception("Invalid credentials")
     
     def _check_valid_user(self, user_obj: User, user_token: str):
         if user_obj is None:
-            raise ValueError("User not found")
+            raise Exception("User not found")
         if user_obj.token != user_token:
-            raise ValueError("Invalid user token")
+            raise Exception("Invalid user token")
     
     async def add_money(self, user_id: str, token: str, amount: int) -> User:
         user_obj = await self.db.get_obj(User, user_id)

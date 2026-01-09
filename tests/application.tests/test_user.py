@@ -13,5 +13,5 @@ async def test_user_login(user_service):
 
 @pytest.mark.asyncio
 async def test_user_login_invalid_credentials(user_service):
-    with pytest.raises(ValueError, match="Invalid credentials"):
+    with pytest.raises(Exception, match="Invalid credentials"):
         await user_service.login("testuser", "wrongpassword")
