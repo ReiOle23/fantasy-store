@@ -3,6 +3,7 @@ from src.application.ports.repositories.item_repository import ItemRepository
 from src.domain.entities.user import User
 from src.domain.entities.item import Item
 import asyncio, threading, uuid
+from fastapi import HTTPException, status
 
 class ItemService(ItemRepository):
     def __init__(self):
@@ -26,17 +27,17 @@ class ItemService(ItemRepository):
     
     def check_valid_item(self, item_obj: Item):
         if item_obj is None:
-            raise Exception("Item not found")
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Item not found") 
         if item_obj.owner is not None:
-            raise Exception("Item already owned")
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Item already owned")
         if item_obj.quantity <= 0:
-            raise Exception("Item out of stock")
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Item out of stock")
         
     def check_valid_user(self, user_obj: User, user_token: str):
         if user_obj is None:
-            raise Exception("User not found")
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
         if user_obj.token != user_token:
-            raise Exception("Invalid user token")
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Invalid user token")
 
     async def process_purchase(self, user_obj: User, item_obj: Item, quantity: int, total_price: int):             
         user_obj.money -= total_price
@@ -53,15 +54,15 @@ class ItemService(ItemRepository):
         
         total_price = item_obj.price * quantity
         if total_price > user_obj.money:
-            raise Exception("Not enough money to buy the item(s)")
-                
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Not enough money to buy the item(s)")
+
         result = await self.db.update_one(
             Item,
             {"_id": item_id, "quantity": {"$gte": quantity}},
             {"$inc": {"quantity": -quantity}}
         )
         if result.modified_count == 0:
-            raise Exception("Item sold out or insufficient quantity")
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Item sold out or insufficient quantity")
         
         await self.process_purchase(user_obj, item_obj, quantity, total_price)
         

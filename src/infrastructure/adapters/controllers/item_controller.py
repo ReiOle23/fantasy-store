@@ -5,18 +5,7 @@ class ItemController:
     def __init__(self):
         self.use_case = ItemService()
         
-    async def get_items(self) -> list[ItemObject]:
-        items = await self.use_case.get_items()
-        return [ItemObject(
-            id=item.id,
-            name=item.name,
-            quantity=item.quantity,
-            price=item.price,
-            owner=item.owner
-        ) for item in items]
-
-    async def get_item_by_id(self, item_id: str) -> ItemObject:
-        item = await self.use_case.get_by_id(item_id)
+    def _return_item_object(self, item) -> ItemObject:
         return ItemObject(
             id=item.id,
             name=item.name,
@@ -24,13 +13,16 @@ class ItemController:
             price=item.price,
             owner=item.owner
         )
+        
+    async def get_items(self) -> list[ItemObject]:
+        items = await self.use_case.get_items()
+        return [self._return_item_object(item) for item in items]
+
+    async def get_item_by_id(self, item_id: str) -> ItemObject:
+        item = await self.use_case.get_by_id(item_id)
+        return self._return_item_object(item) if item else None
 
     async def buy_item(self, payload: UserItemRequest) -> ItemObject:
         item = await self.use_case.buy_item(payload.item_id, payload.user_id, payload.user_token, payload.quantity)
-        return ItemObject(
-            id=item.id, 
-            name=item.name, 
-            quantity=item.quantity,
-            price=item.price,
-            owner=item.owner
-            )
+        return self._return_item_object(item) if item else None
+    

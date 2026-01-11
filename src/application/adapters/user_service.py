@@ -2,6 +2,7 @@ from src.domain.entities.user import User
 from src.infrastructure.database import MongoDB
 from src.application.ports.repositories.user_repository import UserRepository
 import hashlib
+from fastapi import HTTPException, status
 
 class UserService(UserRepository):
     def __init__(self):
@@ -17,7 +18,7 @@ class UserService(UserRepository):
     
     async def create(self, name: str, password: str) -> User:
         if await self.db.find_by_field(User, "name", name):
-            raise Exception("user already exists")
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="user already exists")
         
         password_hash = self._encode_password(password)
         return await self._save_user(name, password_hash)
@@ -27,14 +28,14 @@ class UserService(UserRepository):
         password_hash = self._encode_password(password)
         if user_exists and user_exists.password == password_hash:
             return user_exists
-        raise Exception("Invalid credentials")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Invalid credentials")
     
     def _check_valid_user(self, user_obj: User, user_token: str):
         if user_obj is None:
-            raise Exception("User not found")
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
         if user_obj.token != user_token:
-            raise Exception("Invalid user token")
-    
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Invalid user token")
+
     async def add_money(self, user_id: str, token: str, amount: int) -> User:
         user_obj = await self.db.get_obj(User, user_id)
         self._check_valid_user(user_obj, token)

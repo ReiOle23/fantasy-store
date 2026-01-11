@@ -7,6 +7,7 @@ from src.domain.entities.bid import Bid
 from datetime import datetime
 from src.infrastructure.database import MongoDB
 import uuid, asyncio
+from fastapi import HTTPException, status
 
 class AuctionService(AuctionRepository):
     def __init__(self):
@@ -26,18 +27,18 @@ class AuctionService(AuctionRepository):
     
     async def _checks_before_bid(self, auction: Auction, user: User, price: float):
         if auction is None:
-            raise Exception("Auction not found")
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Auction not found")
         if user is None:
-            raise Exception("User not found")
-        
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+
         if user.money < price:
-            raise Exception("User does not have enough money to make this bid")
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User does not have enough money to make this bid")
         
         if datetime.now() > auction.end_date:
-            raise Exception("Auction has expired")
-        
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Auction has expired")
+
         if price <= auction.highest_bid:
-            raise Exception("Bid price must be higher than the current highest bid")
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Bid price must be higher than the current highest bid")
         
     async def make_bid(self, auction_id:str, user_id: str, price: float) -> bool:
         auction, user = await asyncio.gather(
@@ -67,9 +68,9 @@ class AuctionService(AuctionRepository):
                 "$set": {"highest_bid": price, "highest_bidder": user_id}
             }
         )
-
+        
         if result.modified_count == 0:
-            raise Exception("Auction state changed, please retry")
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Auction state changed, please retry")
         
         return True
     
