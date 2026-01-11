@@ -10,6 +10,7 @@ async def test_all_items(item_service, create_item):
     await create_item()
     items = await item_service.get_items()
     assert len(items) == 3
+    assert type(items[0]) == Item
 
 @pytest.mark.asyncio
 async def test_get_item(item_service, create_item):
