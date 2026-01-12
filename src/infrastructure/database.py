@@ -94,7 +94,10 @@ class MongoDB:
         cursor = collection.find({})
         async for obj_data in cursor:
             obj_data["id"] = obj_data.pop("_id")
-            objects.append(model(**obj_data))
+            if hasattr(model, 'from_dict'):
+                objects.append(model.from_dict(obj_data))
+            else:
+                objects.append(model(**obj_data))
         
         return objects
 
@@ -109,6 +112,9 @@ class MongoDB:
             return None
         
         obj_data["id"] = obj_data.pop("_id")
+        
+        if hasattr(model, 'from_dict'):
+            return model.from_dict(obj_data)
         
         return model(**obj_data)
 

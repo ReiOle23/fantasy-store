@@ -1,5 +1,4 @@
 from pydantic import BaseModel, Field
-from typing import List
 
 class UserItemRequest(BaseModel):
     item_id: str = Field(..., min_length=1)

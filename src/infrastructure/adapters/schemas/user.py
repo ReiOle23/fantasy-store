@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 from typing import List
-from src.domain.entities.item import Item
+from src.infrastructure.adapters.schemas.item import ItemObject
 
 class RegisterUserRequest(BaseModel):
     name: str = Field(..., min_length=1)
@@ -15,10 +15,15 @@ class UserResponse(BaseModel):
     id: str
     name: str
     token: str
-    items: List['Item'] = Field(default_factory=list)
+    items: List[ItemObject] = Field(default_factory=list)
     money: int
 
 class UserObject(BaseModel):
     id: str
     name: str
     token: str
+    
+class UserPublicObject(BaseModel):
+    id: str
+    name: str
+    

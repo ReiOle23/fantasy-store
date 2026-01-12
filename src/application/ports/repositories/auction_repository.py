@@ -4,6 +4,15 @@ from src.domain.entities.item import Item
 from datetime import datetime
 
 class AuctionRepository(ABC):
+    
+    @abstractmethod
+    async def get_auctions(self) -> list[Auction]:
+        ...
+        
+    @abstractmethod
+    async def get_auction(self, auction_id: str) -> Auction:
+        ...
+    
     @abstractmethod
     async def create_auction(self, item: Item, start_date: datetime, end_date: datetime) -> Auction:
         ...

@@ -1,4 +1,5 @@
 from src.infrastructure.adapters.schemas.user import RegisterUserRequest, UserResponse
+from src.infrastructure.adapters.schemas.item import ItemObject
 from src.application.adapters.user_service import UserService
 
 class UserController:
@@ -10,7 +11,16 @@ class UserController:
             id=user.id, 
             name=user.name, 
             token=user.token, 
-            items=user.items, 
+            items=[
+                ItemObject(
+                    id=item.id,
+                    name=item.name,
+                    quantity=item.quantity,
+                    price=item.price,
+                    owner=item.owner
+                )
+                for item in user.items
+            ],
             money=user.money
             )
 

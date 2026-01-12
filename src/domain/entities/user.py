@@ -31,8 +31,20 @@ class User:
     
     def has_item(self, item_name: str) -> bool:
         return any(item.name == item_name for item in self.items)
+    
+    def get_item(self, item_id: str) -> 'Item':
+        for item in self.items:
+            if item.id == item_id:
+                return item
+        return None
 
     def add_item(self, item: 'Item'):
         item.owner = self.id
         self.items.append(item)
         
+    def remove_item(self, item_id: str) -> bool:
+        for i, item in enumerate(self.items):
+            if item.id == item_id:
+                del self.items[i]
+                return True
+        return False
