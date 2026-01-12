@@ -1,5 +1,6 @@
 from dataclasses import asdict
 from src.application.ports.repositories.auction_repository import AuctionRepository
+from src.domain.entities import auction
 from src.domain.entities.auction import Auction
 from src.domain.entities.user import User
 from src.domain.entities.bid import Bid
@@ -27,7 +28,7 @@ class AuctionService(AuctionRepository):
         await self.db.save_obj(auction_user)
     
     async def _finish_auction(self, auction: Auction):
-        if auction.highest_bidder is not None:
+        if auction.highest_bidder != None:
             await self._user_winner_process(auction)
             await self._auction_user_save_money(auction)
         else:
@@ -35,16 +36,17 @@ class AuctionService(AuctionRepository):
             await self.db.save_obj(auction.user)
             
     async def _auction_user_remove_item(self, auction: Auction):
-        auction.user.remove_item(auction.item)
-        await self.db.save_obj(auction.user)
-            
+        user = await self.db.get_obj(User, auction.user.id)
+        user.remove_item(auction.item.id)
+        await self.db.save_obj(user)
+
     async def get_auction(self, auction_id: str) -> Auction:
-        auction = await self.db.get_obj(Auction, auction_id)
-        if auction is None:
+        auction_obj = await self.db.get_obj(Auction, auction_id)
+        if auction_obj is None:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Auction not found")
-        if datetime.now() > auction.end_date:
-            self._finish_auction(auction)
-        return auction
+        if datetime.now() > auction_obj.end_date:
+            await self._finish_auction(auction_obj)
+        return auction_obj
 
     async def create_auction(self, item_id: str, user_id: str, end_date: datetime) -> Auction:
         user = await self.db.get_obj(User, user_id)

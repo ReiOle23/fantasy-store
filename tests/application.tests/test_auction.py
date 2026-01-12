@@ -101,9 +101,10 @@ async def test_auction_ends_without_bids(auction_service, auction_init_user):
         datetime.now() + timedelta(seconds=1)
     )
     user = await MongoDB.get_obj(User, user.id)
-    assert len(user.items) == 0
+    assert user.get_item(auction.item.id) == None
     await asyncio.sleep(2)
+    await auction_service.get_auction(auction.id)
     user_then = await MongoDB.get_obj(User, user.id)
-    assert len(user_then.items) == 1
+    assert user_then.get_item(auction.item.id) != None
     assert user_then.money == user.money
     
