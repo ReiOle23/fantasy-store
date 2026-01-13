@@ -9,6 +9,7 @@ class Item():
     price:int
     id: str = field(default_factory=lambda: str(uuid.uuid4()))
     owner: Optional[str] = None
+    properties: dict = field(default_factory=lambda: {})
     
     @classmethod
     def from_dict(cls, data: dict) -> 'Item':

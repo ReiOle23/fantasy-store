@@ -6,8 +6,11 @@ from src.domain.entities.user import User
 from src.domain.entities.bid import Bid
 from datetime import datetime
 from src.infrastructure.database import MongoDB
-import uuid, asyncio
+import uuid, asyncio, logging
 from fastapi import HTTPException, status
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 class AuctionService(AuctionRepository):
     def __init__(self):
@@ -27,11 +30,12 @@ class AuctionService(AuctionRepository):
         auction_user.money += auction.highest_bid
         await self.db.save_obj(auction_user)
     
-    async def _finish_auction(self, auction: Auction):
+    async def finish_auction(self, auction: Auction):
         if auction.rewarded:
             return
         auction.rewarded = True
         await self.db.save_obj(auction)
+        logger.info(f"✓ Auction with id {auction.id} ended")
         if auction.highest_bidder != None:
             await self._user_winner_process(auction)
             await self._auction_user_save_money(auction)
@@ -49,7 +53,7 @@ class AuctionService(AuctionRepository):
         if auction_obj is None:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Auction not found")
         if datetime.now() > auction_obj.end_date:
-            await self._finish_auction(auction_obj)
+            await self.finish_auction(auction_obj)
         return auction_obj
 
     async def create_auction(self, item_id: str, user_id: str, end_date: datetime) -> Auction:

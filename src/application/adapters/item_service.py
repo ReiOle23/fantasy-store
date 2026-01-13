@@ -17,7 +17,6 @@ class ItemService(ItemRepository):
 
     def _duplicate_item(self, item: Item, user_id: str, quantity: int) -> Item:
         new_item = Item(
-            id=str(uuid.uuid4()),
             name=item.name,
             owner=user_id,
             quantity=quantity,

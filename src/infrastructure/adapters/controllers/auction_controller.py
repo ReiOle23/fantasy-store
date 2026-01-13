@@ -19,7 +19,7 @@ class AuctionController:
             name=user.name
         )
         
-    async def get_bids_obj(self, bids: list[BidObject]):
+    async def _get_bids_obj(self, bids: list[BidObject]):
         user_ids = list({bid.user for bid in bids})
         users = await self.db.get_objs(User, user_ids)
         user_map = {user.id: user for user in users}
@@ -37,7 +37,7 @@ class AuctionController:
     
     async def _return_auction_object(self, auction) -> AuctionObject:
         highest_bidder = await self.db.get_obj(User, auction.highest_bidder) if auction.highest_bidder else None
-        bids_objects = await self.get_bids_obj(auction.bids)
+        bids_objects = await self._get_bids_obj(auction.bids)
         return AuctionObject(
             id=auction.id,
             item=ItemObject(
