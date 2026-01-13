@@ -11,6 +11,14 @@ class AuctionController:
         self.use_case = AuctionService()
         self.db = MongoDB()
         
+    def _public_user_obj(self, user):
+        if not user:
+            return None
+        return UserPublicObject(
+            id=user.id,
+            name=user.name
+        )
+        
     async def get_bids_obj(self, bids: list[BidObject]):
         user_ids = list({bid.user for bid in bids})
         users = await self.db.get_objs(User, user_ids)
@@ -19,10 +27,7 @@ class AuctionController:
         return [
             BidObject(
                 id=bid.id,
-                user=UserPublicObject(
-                    id=user_map[bid.user].id,
-                    name=user_map[bid.user].name
-                ),
+                user=self._public_user_obj(user_map[bid.user]),
                 price=bid.price,
                 created_at=bid.created_at,
                 updated_at=bid.updated_at
@@ -42,18 +47,12 @@ class AuctionController:
                     price=auction.item.price,
                     owner=auction.item.owner
                 ),
-            user=UserPublicObject(
-                    id=auction.user.id,
-                    name=auction.user.name
-                ),
+            user=self._public_user_obj(auction.user),
             start_date=auction.start_date,
             end_date=auction.end_date,
             highest_bid=auction.highest_bid,
             bids=bids_objects,
-            highest_bidder=highest_bidder and UserPublicObject(
-                        id=highest_bidder.id,
-                        name=highest_bidder.name
-                    ),
+            highest_bidder=self._public_user_obj(highest_bidder),
             rewarded=auction.rewarded
         )
 
@@ -68,17 +67,11 @@ class AuctionController:
                     price=auction.item.price,
                     owner=auction.item.owner
                 ),
-            user=UserPublicObject(
-                    id=auction.user.id,
-                    name=auction.user.name
-                ),
+            user=self._public_user_obj(auction.user),
             start_date=auction.start_date,
             end_date=auction.end_date,
             highest_bid=auction.highest_bid,
-            highest_bidder=highest_bidder and UserPublicObject(
-                        id=highest_bidder.id,
-                        name=highest_bidder.name
-                    ),
+            highest_bidder=self._public_user_obj(highest_bidder),
             rewarded=auction.rewarded
         )
 
