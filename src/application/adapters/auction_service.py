@@ -28,6 +28,10 @@ class AuctionService(AuctionRepository):
         await self.db.save_obj(auction_user)
     
     async def _finish_auction(self, auction: Auction):
+        if auction.rewarded:
+            return
+        auction.rewarded = True
+        await self.db.save_obj(auction)
         if auction.highest_bidder != None:
             await self._user_winner_process(auction)
             await self._auction_user_save_money(auction)

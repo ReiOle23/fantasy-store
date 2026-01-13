@@ -108,3 +108,25 @@ async def test_auction_ends_without_bids(auction_service, auction_init_user):
     assert user_then.get_item(auction.item.id) != None
     assert user_then.money == user.money
     
+@pytest.mark.asyncio
+async def test_auction_ends_with_bids(auction_service, auction_init_user):
+    user = await auction_init_user("user1")
+    user2 = await auction_init_user("user2")
+    auction = await auction_service.create_auction(
+        user.items[0].id or None,
+        user.id,
+        datetime.now() + timedelta(seconds=1)
+    )
+    user2 = await MongoDB.get_obj(User, user2.id)
+    assert user2.get_item(auction.item.id) == None
+    await auction_service.make_bid(auction.id, user2.id, 200)
+    await asyncio.sleep(2)
+    await auction_service.get_auction(auction.id)
+    
+    user1_then = await MongoDB.get_obj(User, user.id)
+    assert user1_then.get_item(auction.item.id) == None
+    assert user1_then.money == user.money + 200
+    
+    user2_then = await MongoDB.get_obj(User, user2.id)
+    assert user2_then.get_item(auction.item.id) != None
+    assert user2_then.money == user2.money - 200

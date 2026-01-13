@@ -31,7 +31,8 @@ class AuctionObject(BaseModel):
     end_date: datetime
     highest_bid: int = 0
     bids: List[BidObject] = Field(default_factory=list)
-    highest_bidder: str | None = None
+    highest_bidder: UserPublicObject | None = None
+    rewarded: bool = False
     
 class AuctionPublicObject(BaseModel):
     id: str
@@ -40,4 +41,5 @@ class AuctionPublicObject(BaseModel):
     start_date: datetime
     end_date: datetime
     highest_bid: int = 0
-    highest_bidder: str | None = None
+    highest_bidder: UserPublicObject | None = None
+    rewarded: bool = False

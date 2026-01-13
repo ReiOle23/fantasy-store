@@ -83,6 +83,27 @@ class MongoDB:
             return model.from_dict(obj_data)
         
         return model(**obj_data)
+    
+    @classmethod
+    async def get_objs(cls, model: T, ids: list[str]) -> list[T]:
+        """Get multiple objects by IDs in a single query"""
+        await cls.connect()
+        collection = cls._get_collection(model.__name__)
+        
+        cursor = collection.find({"_id": {"$in": ids}})
+        objs = []
+        
+        async for obj_data in cursor:
+            # Convert _id to id for dataclass
+            obj_data["id"] = obj_data.pop("_id")
+            
+            # Use from_dict if available
+            if hasattr(model, 'from_dict'):
+                objs.append(model.from_dict(obj_data))
+            else:
+                objs.append(model(**obj_data))
+        
+        return objs
 
     @classmethod
     async def get_all(cls, model: T) -> List[Any]:

@@ -18,6 +18,7 @@ class Auction():
     id: str = field(default_factory=lambda: str(uuid.uuid4()))
     bids: list['Bid'] = field(default_factory=list)
     highest_bidder: str = None
+    rewarded: bool = False
     
     @classmethod
     def from_dict(cls, data: dict) -> 'Auction':
