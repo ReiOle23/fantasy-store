@@ -45,6 +45,18 @@ class UserService(UserRepository):
         await self.db.save_obj(user_obj)
         return user_obj
 
+    async def set_name(self, user_id: str, token: str, name: str) -> User:
+        user_obj = await self.db.get_obj(User, user_id)
+        self._check_valid_user(user_obj, token)
+
+        if user_obj.name != name:
+            existing = await self.db.find_by_field(User, "name", name)
+            if existing and existing.id != user_id:
+                raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="name already taken")
+            user_obj.name = name
+            await self.db.save_obj(user_obj)
+        return user_obj
+
     async def add_item(self, user_id: str, token: str, name: str, price: int,
                        quantity: int, item_type: str, properties: dict) -> Item:
         user_obj = await self.db.get_obj(User, user_id)

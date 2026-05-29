@@ -18,6 +18,13 @@ class AuctionController:
             id=user.id,
             name=user.name
         )
+
+    async def _fresh_seller(self, auction):
+        """Return the seller using the user's current name, not the snapshot stored on the auction."""
+        if not auction.user:
+            return None
+        seller = await self.db.get_obj(User, auction.user.id)
+        return self._public_user_obj(seller or auction.user)
         
     async def _get_bids_obj(self, bids: list[BidObject]):
         user_ids = list({bid.user for bid in bids})
@@ -48,7 +55,7 @@ class AuctionController:
                     owner=auction.item.owner,
                     properties=auction.item.properties
                 ),
-            user=self._public_user_obj(auction.user),
+            user=await self._fresh_seller(auction),
             start_date=auction.start_date,
             end_date=auction.end_date,
             highest_bid=auction.highest_bid,
@@ -69,7 +76,7 @@ class AuctionController:
                     owner=auction.item.owner,
                     properties=auction.item.properties
                 ),
-            user=self._public_user_obj(auction.user),
+            user=await self._fresh_seller(auction),
             start_date=auction.start_date,
             end_date=auction.end_date,
             highest_bid=auction.highest_bid,

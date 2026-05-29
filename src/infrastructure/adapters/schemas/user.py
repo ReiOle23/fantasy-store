@@ -11,6 +11,11 @@ class UserTokenRequest(BaseModel):
     token: str = Field(..., min_length=1)
     amount: int = Field(..., gt=0)
 
+class UserSetNameRequest(BaseModel):
+    user_id: str = Field(..., min_length=1)
+    user_token: str = Field(..., min_length=1)
+    name: str = Field(..., min_length=1)
+
 class UserAddItemRequest(BaseModel):
     user_id: str = Field(..., min_length=1)
     user_token: str = Field(..., min_length=1)

@@ -1,5 +1,5 @@
 from fastapi import APIRouter, status
-from src.infrastructure.adapters.schemas.user import RegisterUserRequest, UserResponse, UserTokenRequest, UserAddItemRequest
+from src.infrastructure.adapters.schemas.user import RegisterUserRequest, UserResponse, UserTokenRequest, UserAddItemRequest, UserSetNameRequest
 from src.infrastructure.adapters.schemas.item import ItemObject
 from src.infrastructure.adapters.controllers.user_controller import UserController
 
@@ -20,3 +20,7 @@ async def add_money(payload: UserTokenRequest) -> UserResponse:
 @router.post("/user-add-item", tags=["users"], response_model=ItemObject, status_code=status.HTTP_201_CREATED)
 async def add_item(payload: UserAddItemRequest) -> ItemObject:
 	return await UserController().add_item(payload)
+
+@router.patch("/user-name", tags=["users"], response_model=UserResponse, status_code=status.HTTP_200_OK)
+async def set_name(payload: UserSetNameRequest) -> UserResponse:
+	return await UserController().set_name(payload)
