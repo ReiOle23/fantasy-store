@@ -52,7 +52,7 @@ class MongoDB:
         collection_map = {
             "User": "users",
             "Item": "items",
-            "Store": "stores"
+            "Auction": "auctions"
         }
         collection_name = collection_map.get(model_name, model_name.lower() + "s")
         return cls.database[collection_name]
@@ -61,7 +61,7 @@ class MongoDB:
     async def clear(cls):
         """Clear all collections"""
         await cls.connect()
-        collections = ["users", "items", "stores"]
+        collections = ["users", "items", "auctions"]
         for collection_name in collections:
             await cls.database[collection_name].delete_many({})
 

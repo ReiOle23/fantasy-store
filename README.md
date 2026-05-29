@@ -35,3 +35,5 @@ replicates an async by executing tasks of the celery in order and by getting the
 ## Tests
 To run single tests:
 - pytest -s tests/application.tests/test_item.py
+
+docker exec -it fantasy_mongodb mongosh -u fantasy -p fantasy --authenticationDatabase admin

@@ -5,15 +5,14 @@ services:
     volumes:
       - .:/app
     ports:
-      # - "59900:8000"
-      - "8000:8000"
+      - "8005:8005"
     env_file:
       - .env
     depends_on:
       - fantasy_mongodb
     # For localhost
     # command: sleep infinity
-    command: uvicorn main:app --host 0.0.0.0 --port 8000
+    command: uvicorn main:app --host 0.0.0.0 --port 8005
     restart: always
     working_dir: /app
     environment:
