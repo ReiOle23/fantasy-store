@@ -36,3 +36,23 @@ class UserController:
     async def add_money(self, payload: RegisterUserRequest) -> UserResponse:
         user = await self.use_case.add_money(user_id=payload.id, token=payload.token, amount=payload.amount)
         return self._return_user_response(user)
+
+    async def add_item(self, payload) -> ItemObject:
+        item = await self.use_case.add_item(
+            user_id=payload.user_id,
+            token=payload.user_token,
+            name=payload.name,
+            price=payload.price,
+            quantity=payload.quantity,
+            item_type=payload.item_type,
+            properties=payload.properties,
+        )
+        return ItemObject(
+            id=item.id,
+            name=item.name,
+            quantity=item.quantity,
+            price=item.price,
+            owner=item.owner,
+            item_type=item.item_type,
+            properties=item.properties,
+        )

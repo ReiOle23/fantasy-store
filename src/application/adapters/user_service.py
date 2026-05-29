@@ -1,4 +1,5 @@
 from src.domain.entities.user import User
+from src.domain.entities.item import Item
 from src.infrastructure.database import MongoDB
 from src.application.ports.repositories.user_repository import UserRepository
 import hashlib
@@ -39,7 +40,24 @@ class UserService(UserRepository):
     async def add_money(self, user_id: str, token: str, amount: int) -> User:
         user_obj = await self.db.get_obj(User, user_id)
         self._check_valid_user(user_obj, token)
-        
+
         user_obj.money += amount
         await self.db.save_obj(user_obj)
         return user_obj
+
+    async def add_item(self, user_id: str, token: str, name: str, price: int,
+                       quantity: int, item_type: str, properties: dict) -> Item:
+        user_obj = await self.db.get_obj(User, user_id)
+        self._check_valid_user(user_obj, token)
+
+        item = Item(
+            name=name,
+            price=price,
+            quantity=quantity,
+            owner=user_id,
+            item_type=item_type,
+            properties=properties or {},
+        )
+        user_obj.add_item(item)
+        await self.db.save_obj(user_obj)
+        return item
