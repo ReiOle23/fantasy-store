@@ -45,7 +45,8 @@ class AuctionController:
                     name=auction.item.name,
                     quantity=auction.item.quantity,
                     price=auction.item.price,
-                    owner=auction.item.owner
+                    owner=auction.item.owner,
+                    properties=auction.item.properties
                 ),
             user=self._public_user_obj(auction.user),
             start_date=auction.start_date,
@@ -65,7 +66,8 @@ class AuctionController:
                     name=auction.item.name,
                     quantity=auction.item.quantity,
                     price=auction.item.price,
-                    owner=auction.item.owner
+                    owner=auction.item.owner,
+                    properties=auction.item.properties
                 ),
             user=self._public_user_obj(auction.user),
             start_date=auction.start_date,

@@ -11,7 +11,9 @@ class ItemController:
             name=item.name,
             quantity=item.quantity,
             price=item.price,
-            owner=item.owner
+            owner=item.owner,
+            item_type=item.item_type,
+            properties=item.properties
         )
         
     async def get_items(self) -> list[ItemObject]:

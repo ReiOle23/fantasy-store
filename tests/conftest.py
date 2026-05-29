@@ -53,12 +53,10 @@ async def auction_init_user():
     async def _create_user_and_item(user_name: str):
         new_user = await UserService().create(user_name, "password123")
         new_user.money = 1000
-        item = Item(
-            id=str(uuid.uuid4()), 
-            name=f"{user_name}'s Staff", 
-            owner=new_user.id, 
-            quantity=1, 
-            price=50
+        item = Item.weapon(
+            name=f"{user_name}'s Staff",
+            price=50,
+            quantity=1,
         )
         new_user.add_item(item)
         await MongoDB.save_obj(new_user)

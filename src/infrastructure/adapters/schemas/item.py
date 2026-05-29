@@ -13,4 +13,6 @@ class ItemObject(BaseModel):
     quantity: int
     price: int
     owner: str | None = None
+    item_type: str | None = None
+    properties: dict = {}
     

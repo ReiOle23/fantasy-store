@@ -2,7 +2,7 @@ from src.infrastructure.database import MongoDB
 from src.application.ports.repositories.item_repository import ItemRepository
 from src.domain.entities.user import User
 from src.domain.entities.item import Item
-import asyncio, threading, uuid
+import asyncio, threading, uuid, copy
 from fastapi import HTTPException, status
 
 class ItemService(ItemRepository):
@@ -20,7 +20,9 @@ class ItemService(ItemRepository):
             name=item.name,
             owner=user_id,
             quantity=quantity,
-            price=item.price
+            price=item.price,
+            item_type=item.item_type,
+            properties=copy.deepcopy(item.properties)
         )
         return new_item
     

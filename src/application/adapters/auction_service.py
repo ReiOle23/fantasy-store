@@ -63,7 +63,9 @@ class AuctionService(AuctionRepository):
         item = user.get_item(item_id)
         if item is None:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Item not found")
-       
+        if not item.is_auctionable():
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Item cannot be auctioned")
+
         new_auction = Auction(
             id=str(uuid.uuid4()),
             item=item,

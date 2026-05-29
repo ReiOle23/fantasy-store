@@ -17,7 +17,8 @@ class UserController:
                     name=item.name,
                     quantity=item.quantity,
                     price=item.price,
-                    owner=item.owner
+                    owner=item.owner,
+                    properties=item.properties
                 )
                 for item in user.items
             ],
