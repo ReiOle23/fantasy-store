@@ -86,7 +86,7 @@ class AuctionController:
         return await self._return_auction_object(auction)
     
     async def create_auction(self, payload: AuctionCreateRequest) -> AuctionPublicObject:
-        auction = await self.use_case.create_auction(payload.item_id, payload.user_id, payload.end_date)
+        auction = await self.use_case.create_auction(payload.item_id, payload.user_id, payload.end_date, payload.starting_bid)
         return await self._return_public_auction_object(auction)
 
     async def make_bid(self, payload: AuctionBidRequest) -> bool:

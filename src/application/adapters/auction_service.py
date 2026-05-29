@@ -56,7 +56,7 @@ class AuctionService(AuctionRepository):
             await self.finish_auction(auction_obj)
         return auction_obj
 
-    async def create_auction(self, item_id: str, user_id: str, end_date: datetime) -> Auction:
+    async def create_auction(self, item_id: str, user_id: str, end_date: datetime, starting_bid: int = None) -> Auction:
         user = await self.db.get_obj(User, user_id)
         if user is None:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
@@ -72,7 +72,7 @@ class AuctionService(AuctionRepository):
             user=user,
             start_date=datetime.now(),
             end_date=end_date,
-            highest_bid=item.price
+            highest_bid=starting_bid if starting_bid is not None else item.price
         )
         await self.db.save_obj(new_auction)
         await self._auction_user_remove_item(new_auction)

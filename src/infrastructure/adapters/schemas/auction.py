@@ -14,6 +14,7 @@ class AuctionCreateRequest(BaseModel):
     item_id: str
     user_id: str
     end_date: datetime
+    starting_bid: int | None = None
     
 class BidObject(BaseModel):
     id: str
