@@ -20,3 +20,7 @@ async def create_auction(payload: AuctionCreateRequest) -> AuctionPublicObject:
 @router.post("/auctions/{auction_id}/bid", tags=["auctions"], response_model=bool, status_code=status.HTTP_200_OK)
 async def make_bid(payload: AuctionBidRequest) -> bool:
 	return await AuctionController().make_bid(payload)
+
+@router.post("/auctions/{auction_id}/settle-game", tags=["auctions"], response_model=AuctionObject, status_code=status.HTTP_200_OK)
+async def settle_in_game(auction_id: str) -> AuctionObject:
+	return await AuctionController().mark_settled_in_game(auction_id)

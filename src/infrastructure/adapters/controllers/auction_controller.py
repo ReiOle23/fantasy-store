@@ -53,6 +53,7 @@ class AuctionController:
                     quantity=auction.item.quantity,
                     price=auction.item.price,
                     owner=auction.item.owner,
+                    item_type=auction.item.item_type,
                     properties=auction.item.properties
                 ),
             user=await self._fresh_seller(auction),
@@ -61,7 +62,8 @@ class AuctionController:
             highest_bid=auction.highest_bid,
             bids=bids_objects,
             highest_bidder=self._public_user_obj(highest_bidder),
-            rewarded=auction.rewarded
+            rewarded=auction.rewarded,
+            settled_in_game=auction.settled_in_game
         )
 
     async def _return_public_auction_object(self, auction) -> AuctionPublicObject:
@@ -74,6 +76,7 @@ class AuctionController:
                     quantity=auction.item.quantity,
                     price=auction.item.price,
                     owner=auction.item.owner,
+                    item_type=auction.item.item_type,
                     properties=auction.item.properties
                 ),
             user=await self._fresh_seller(auction),
@@ -81,7 +84,8 @@ class AuctionController:
             end_date=auction.end_date,
             highest_bid=auction.highest_bid,
             highest_bidder=self._public_user_obj(highest_bidder),
-            rewarded=auction.rewarded
+            rewarded=auction.rewarded,
+            settled_in_game=auction.settled_in_game
         )
 
     async def get_auctions(self) -> list[AuctionPublicObject]:
@@ -98,3 +102,7 @@ class AuctionController:
 
     async def make_bid(self, payload: AuctionBidRequest) -> bool:
         return await self.use_case.make_bid(payload.auction_id, payload.user_id, payload.price)
+
+    async def mark_settled_in_game(self, auction_id: str) -> AuctionObject:
+        auction = await self.use_case.mark_settled_in_game(auction_id)
+        return await self._return_auction_object(auction)

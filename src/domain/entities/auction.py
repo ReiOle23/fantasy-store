@@ -19,6 +19,7 @@ class Auction():
     bids: list['Bid'] = field(default_factory=list)
     highest_bidder: str = None
     rewarded: bool = False
+    settled_in_game: bool = False
     
     @classmethod
     def from_dict(cls, data: dict) -> 'Auction':

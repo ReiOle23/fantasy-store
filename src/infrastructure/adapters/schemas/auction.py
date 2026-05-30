@@ -34,6 +34,7 @@ class AuctionObject(BaseModel):
     bids: List[BidObject] = Field(default_factory=list)
     highest_bidder: UserPublicObject | None = None
     rewarded: bool = False
+    settled_in_game: bool = False
     
 class AuctionPublicObject(BaseModel):
     id: str
@@ -44,3 +45,4 @@ class AuctionPublicObject(BaseModel):
     highest_bid: int = 0
     highest_bidder: UserPublicObject | None = None
     rewarded: bool = False
+    settled_in_game: bool = False

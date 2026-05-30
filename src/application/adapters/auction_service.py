@@ -56,6 +56,24 @@ class AuctionService(AuctionRepository):
             await self.finish_auction(auction_obj)
         return auction_obj
 
+    async def mark_settled_in_game(self, auction_id: str) -> Auction:
+        auction_obj = await self.db.get_obj(Auction, auction_id)
+        if auction_obj is None:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Auction not found")
+        if datetime.now() < auction_obj.end_date:
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Auction not ended yet")
+        if not auction_obj.rewarded:
+            await self.finish_auction(auction_obj)
+
+        result = await self.db.update_one(
+            Auction,
+            {"_id": auction_id, "settled_in_game": False},
+            {"$set": {"settled_in_game": True}},
+        )
+        if result.modified_count != 1:
+            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Auction already settled in game")
+        return await self.db.get_obj(Auction, auction_id)
+
     async def create_auction(self, item_id: str, user_id: str, end_date: datetime, starting_bid: int = None) -> Auction:
         user = await self.db.get_obj(User, user_id)
         if user is None:
