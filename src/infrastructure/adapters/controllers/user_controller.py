@@ -37,6 +37,14 @@ class UserController:
         user = await self.use_case.add_money(user_id=payload.id, token=payload.token, amount=payload.amount)
         return self._return_user_response(user)
 
+    async def set_money(self, payload) -> UserResponse:
+        user = await self.use_case.set_money(
+            user_id=payload.user_id,
+            token=payload.user_token,
+            amount=payload.amount,
+        )
+        return self._return_user_response(user)
+
     async def set_name(self, payload) -> UserResponse:
         user = await self.use_case.set_name(
             user_id=payload.user_id,
