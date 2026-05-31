@@ -5,6 +5,7 @@ from src.infrastructure.adapters.schemas.user import UserPublicObject
 from src.application.adapters.auction_service import AuctionService
 from src.infrastructure.database import MongoDB
 from src.domain.entities.user import User
+from src.domain.entities.auction import Auction
 
 class AuctionController:
     def __init__(self):
@@ -102,6 +103,11 @@ class AuctionController:
 
     async def make_bid(self, payload: AuctionBidRequest) -> bool:
         return await self.use_case.make_bid(payload.auction_id, payload.user_id, payload.price)
+
+    async def public_auction(self, auction_id: str) -> AuctionPublicObject:
+        """Serialize a single auction for broadcasting (no finish side effects)."""
+        auction = await self.db.get_obj(Auction, auction_id)
+        return await self._return_public_auction_object(auction)
 
     async def mark_settled_in_game(self, auction_id: str) -> AuctionObject:
         auction = await self.use_case.mark_settled_in_game(auction_id)

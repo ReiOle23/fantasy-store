@@ -1,9 +1,20 @@
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, WebSocket, WebSocketDisconnect
 from src.infrastructure.adapters.schemas.auction import AuctionCreateRequest, AuctionBidRequest
 from src.infrastructure.adapters.schemas.auction import AuctionObject, AuctionPublicObject
 from src.infrastructure.adapters.controllers.auction_controller import AuctionController
+from src.infrastructure.ws.auction_hub import auction_hub
 
 router = APIRouter()
+
+
+@router.websocket("/ws/auctions")
+async def auctions_ws(websocket: WebSocket):
+	await auction_hub.connect(websocket)
+	try:
+		while True:
+			await websocket.receive_text()
+	except WebSocketDisconnect:
+		await auction_hub.disconnect(websocket)
 
 @router.get("/auctions", tags=["auctions"], response_model=list[AuctionPublicObject], status_code=status.HTTP_201_CREATED)
 async def get_auctions() -> list[AuctionPublicObject]:
@@ -19,7 +30,12 @@ async def create_auction(payload: AuctionCreateRequest) -> AuctionPublicObject:
 
 @router.post("/auctions/{auction_id}/bid", tags=["auctions"], response_model=bool, status_code=status.HTTP_200_OK)
 async def make_bid(payload: AuctionBidRequest) -> bool:
-	return await AuctionController().make_bid(payload)
+	controller = AuctionController()
+	ok = await controller.make_bid(payload)
+	if ok:
+		auction = await controller.public_auction(payload.auction_id)
+		await auction_hub.broadcast({"type": "bid", "auction": auction.model_dump(mode="json")})
+	return ok
 
 @router.post("/auctions/{auction_id}/settle-game", tags=["auctions"], response_model=AuctionObject, status_code=status.HTTP_200_OK)
 async def settle_in_game(auction_id: str) -> AuctionObject:

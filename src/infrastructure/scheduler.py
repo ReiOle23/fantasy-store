@@ -6,6 +6,7 @@ import httpx
 
 from src.application.adapters.auction_service import AuctionService
 from src.infrastructure.adapters.controllers.auction_controller import AuctionController
+from src.infrastructure.ws.auction_hub import auction_hub
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -39,6 +40,7 @@ async def _refresh_once(service: AuctionService, controller: AuctionController, 
         payload = (await controller._return_auction_object(auction)).model_dump(mode="json")
         if await _notify_rol_game(client, payload):
             await service.claim_settled(auction.id)
+            await auction_hub.broadcast({"type": "finished", "auction_id": auction.id})
             logger.info("✓ Auction %s settled and mailed to rol-game", auction.id)
 
 
