@@ -17,6 +17,8 @@ services:
     working_dir: /app
     environment:
       - PYTHONPATH=/app
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   fantasy_mongodb_local:
       image: mongo:latest
