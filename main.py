@@ -1,9 +1,22 @@
 # from typing import Union
+import asyncio
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from src.infrastructure.adapters.routes import item_routes, user_routes, auction_routes
+from src.infrastructure.scheduler import auction_refresh_loop
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI()
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    task = asyncio.create_task(auction_refresh_loop())
+    try:
+        yield
+    finally:
+        task.cancel()
+
+
+app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,

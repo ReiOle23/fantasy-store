@@ -13,7 +13,7 @@ services:
     # For localhost
     # command: sleep infinity
     command: uvicorn main:app --host 0.0.0.0 --port 8005
-    restart: always
+    restart: unless-stopped
     working_dir: /app
     environment:
       - PYTHONPATH=/app
@@ -24,8 +24,6 @@ services:
       volumes:
         - ./docker_volumes/mongodb:/data/db
       environment:
-        - MONGO_INITDB_ROOT_USERNAME=fantasy
-        - MONGO_INITDB_ROOT_PASSWORD=fantasy
-        - MONGO_INITDB_DATABASE=fantasy_back
+      - ../.env.db
       ports:
         - "27017:27017"
