@@ -56,6 +56,26 @@ class AuctionService(AuctionRepository):
             await self.finish_auction(auction_obj)
         return auction_obj
 
+    async def settle_pending(self) -> list[Auction]:
+        """Finish ended auctions and atomically claim the in-game settlement slot. Returns the newly-settled ones."""
+        now = datetime.now()
+        newly_settled: list[Auction] = []
+        for auct in await self.db.get_all(Auction):
+            if auct.settled_in_game or now < auct.end_date:
+                continue
+            if not auct.rewarded:
+                await self.finish_auction(auct)
+            result = await self.db.update_one(
+                Auction,
+                {"_id": auct.id, "settled_in_game": False},
+                {"$set": {"settled_in_game": True}},
+            )
+            if result.modified_count == 1:
+                refreshed = await self.db.get_obj(Auction, auct.id)
+                if refreshed is not None:
+                    newly_settled.append(refreshed)
+        return newly_settled
+
     async def mark_settled_in_game(self, auction_id: str) -> Auction:
         auction_obj = await self.db.get_obj(Auction, auction_id)
         if auction_obj is None:

@@ -106,3 +106,7 @@ class AuctionController:
     async def mark_settled_in_game(self, auction_id: str) -> AuctionObject:
         auction = await self.use_case.mark_settled_in_game(auction_id)
         return await self._return_auction_object(auction)
+
+    async def settle_pending(self) -> list[AuctionObject]:
+        auctions = await self.use_case.settle_pending()
+        return [await self._return_auction_object(auction) for auction in auctions]

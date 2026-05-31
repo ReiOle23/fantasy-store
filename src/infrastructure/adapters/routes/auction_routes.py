@@ -24,3 +24,7 @@ async def make_bid(payload: AuctionBidRequest) -> bool:
 @router.post("/auctions/{auction_id}/settle-game", tags=["auctions"], response_model=AuctionObject, status_code=status.HTTP_200_OK)
 async def settle_in_game(auction_id: str) -> AuctionObject:
 	return await AuctionController().mark_settled_in_game(auction_id)
+
+@router.post("/auctions/settle-pending", tags=["auctions"], response_model=list[AuctionObject], status_code=status.HTTP_200_OK)
+async def settle_pending() -> list[AuctionObject]:
+	return await AuctionController().settle_pending()
