@@ -1,3 +1,4 @@
+from datetime import datetime
 from src.infrastructure.adapters.schemas.auction import AuctionBidRequest, AuctionCreateRequest
 from src.infrastructure.adapters.schemas.auction import AuctionObject, AuctionPublicObject, BidObject
 from src.infrastructure.adapters.schemas.item import ItemObject
@@ -91,7 +92,9 @@ class AuctionController:
 
     async def get_auctions(self) -> list[AuctionPublicObject]:
         auctions = await self.use_case.get_auctions()
-        return [await self._return_public_auction_object(auction) for auction in auctions]
+        now = datetime.now()
+        active = [auction for auction in auctions if auction.end_date > now]
+        return [await self._return_public_auction_object(auction) for auction in active]
     
     async def get_auction(self, auction_id: str) -> AuctionObject:
         auction = await self.use_case.get_auction(auction_id)

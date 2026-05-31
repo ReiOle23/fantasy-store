@@ -26,7 +26,9 @@ async def get_auction(auction_id: str) -> AuctionObject:
 
 @router.post("/auctions", tags=["auctions"], response_model=AuctionPublicObject, status_code=status.HTTP_201_CREATED)
 async def create_auction(payload: AuctionCreateRequest) -> AuctionPublicObject:
-	return await AuctionController().create_auction(payload)
+	auction = await AuctionController().create_auction(payload)
+	await auction_hub.broadcast({"type": "created", "auction": auction.model_dump(mode="json")})
+	return auction
 
 @router.post("/auctions/{auction_id}/bid", tags=["auctions"], response_model=bool, status_code=status.HTTP_200_OK)
 async def make_bid(payload: AuctionBidRequest) -> bool:
