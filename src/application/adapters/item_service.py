@@ -67,9 +67,9 @@ class ItemService(ItemRepository):
         
         await self.process_purchase(user_obj, item_obj, quantity, total_price)
         
-        # Check if we need to delete the item
+        # Check if we need to delete the item (a concurrent buyer may already have removed it)
         updated_item = await self.db.get_obj(Item, item_id)
-        if updated_item.quantity <= 0:
+        if updated_item is not None and updated_item.quantity <= 0:
             await self.db.remove_obj(updated_item)
         
         return item_obj

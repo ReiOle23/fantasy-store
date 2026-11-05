@@ -30,8 +30,6 @@ tests/
 
 - Every folder needs an `__init__.py`. Files `test_<thing>.py`, functions `test_<behaviour>`.
 - Kind-specific fixtures can go in a `conftest.py` inside that folder.
-- The old `tests/domain.tests/` and `tests/application.tests/` folders are legacy: don't add
-  tests there; move them to `unit/` and `integration/` when you touch them.
 
 ## What goes in each kind
 

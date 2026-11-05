@@ -19,34 +19,48 @@ class AuctionService(AuctionRepository):
     async def get_auctions(self) -> list[Auction]:
         return await self.db.get_all(Auction)
     
+    async def _give_item(self, user_id: str, auction: Auction, money_change: int = 0):
+        """Atomically push the auctioned item into a user's inventory (and move gold), without
+        overwriting the rest of the user document."""
+        auction.item.owner = user_id
+        update = {"$push": {"items": asdict(auction.item)}}
+        if money_change:
+            update["$inc"] = {"money": money_change}
+        await self.db.update_one(User, {"_id": user_id}, update)
+
     async def _user_winner_process(self, auction: Auction):
-        user_winner = await self.db.get_obj(User, auction.highest_bidder)
-        user_winner.money -= auction.highest_bid
-        user_winner.add_item(auction.item)
-        await self.db.save_obj(user_winner)
-        
+        await self._give_item(auction.highest_bidder, auction, -auction.highest_bid)
+
     async def _auction_user_save_money(self, auction: Auction):
-        auction_user = await self.db.get_obj(User, auction.user.id)
-        auction_user.money += auction.highest_bid
-        await self.db.save_obj(auction_user)
-    
+        await self.db.update_one(User, {"_id": auction.user.id}, {"$inc": {"money": auction.highest_bid}})
+
     async def finish_auction(self, auction: Auction):
         if auction.rewarded:
             return
+        # Claim the delivery atomically so concurrent finishes deliver exactly once.
+        claim = await self.db.update_one(
+            Auction,
+            {"_id": auction.id, "rewarded": False},
+            {"$set": {"rewarded": True}},
+        )
         auction.rewarded = True
-        await self.db.save_obj(auction)
+        if claim.modified_count != 1:
+            return
         logger.info(f"✓ Auction with id {auction.id} ended")
         if auction.highest_bidder != None:
             await self._user_winner_process(auction)
             await self._auction_user_save_money(auction)
         else:
-            auction.user.add_item(auction.item)
-            await self.db.save_obj(auction.user)
-            
-    async def _auction_user_remove_item(self, auction: Auction):
-        user = await self.db.get_obj(User, auction.user.id)
-        user.remove_item(auction.item.id)
-        await self.db.save_obj(user)
+            await self._give_item(auction.user.id, auction)
+
+    async def _auction_user_remove_item(self, user_id: str, item_id: str) -> bool:
+        """Atomically take the item out of the seller's inventory. False if it was no longer there."""
+        result = await self.db.update_one(
+            User,
+            {"_id": user_id, "items.id": item_id},
+            {"$pull": {"items": {"id": item_id}}},
+        )
+        return result.modified_count == 1
 
     async def get_auction(self, auction_id: str) -> Auction:
         auction_obj = await self.db.get_obj(Auction, auction_id)
@@ -125,6 +139,11 @@ class AuctionService(AuctionRepository):
         if not item.is_auctionable():
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Item cannot be auctioned")
 
+        # The item leaves the inventory first, atomically, so it can only be in one auction.
+        if not await self._auction_user_remove_item(user_id, item_id):
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Item not found")
+        user.remove_item(item_id)
+
         new_auction = Auction(
             id=str(uuid.uuid4()),
             item=item,
@@ -134,7 +153,6 @@ class AuctionService(AuctionRepository):
             highest_bid=starting_bid if starting_bid is not None else item.price
         )
         await self.db.save_obj(new_auction)
-        await self._auction_user_remove_item(new_auction)
         return new_auction
     
     async def _checks_before_bid(self, auction: Auction, user: User, price: float):

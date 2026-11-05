@@ -62,3 +62,17 @@ async def auction_init_user():
         await MongoDB.save_obj(new_user)
         return new_user
     return _create_user_and_item
+
+@pytest.fixture
+def expire_auction():
+    """Move an auction's end date into the past, so it counts as ended without sleeping."""
+    from datetime import datetime, timedelta
+    from src.domain.entities.auction import Auction
+
+    async def _expire(auction_id: str):
+        await MongoDB.update_one(
+            Auction,
+            {"_id": auction_id},
+            {"$set": {"end_date": datetime.now() - timedelta(seconds=1)}},
+        )
+    return _expire

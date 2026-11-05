@@ -21,7 +21,7 @@ Layered monolith with Hexagonal architecture (see `docs/architecture.md`):
 - `src/application/` — use cases
 - `src/infrastructure/` — adapters (routes: users, items, auctions), Mongo repositories, auction scheduler
 - `main.py` — FastAPI app, CORS, routers, auction refresh loop
-- `tests/` — `domain.tests/`, `application.tests/` (e.g. `pytest -s tests/application.tests/test_item.py`)
+- `tests/` — `unit/`, `integration/`, `e2e/` (e.g. `pytest -s tests/integration/test_item_service.py`)
 
 ## Business rules
 Read `docs/BUSINESS_RULES.md` before changing game logic: it is the product source of truth (no technology, only business rules). The "Game rules" section is identical in all three repos — keep it so.
