@@ -22,3 +22,12 @@ Layered monolith with Hexagonal architecture (see `docs/architecture.md`):
 - `src/infrastructure/` — adapters (routes: users, items, auctions), Mongo repositories, auction scheduler
 - `main.py` — FastAPI app, CORS, routers, auction refresh loop
 - `tests/` — `domain.tests/`, `application.tests/` (e.g. `pytest -s tests/application.tests/test_item.py`)
+
+## Business rules
+Read `docs/BUSINESS_RULES.md` before changing game logic: it is the product source of truth (no technology, only business rules). The "Game rules" section is identical in all three repos — keep it so.
+
+## Testing
+Every time new code is written or existing code is changed, use the `testing` skill
+(`.claude/skills/testing/SKILL.md`): add or update the tests in `tests/` (unit, integration,
+e2e), run them, and fix the code and/or tests until the whole suite passes before calling the
+work done.
