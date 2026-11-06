@@ -1,7 +1,7 @@
 # Crown & Trade — Business Rules
 
 **Project:** Marketplace
-**Last reviewed:** 2026-11-05
+**Last reviewed:** 2026-11-06
 
 Crown & Trade is a fantasy trading and adventure game. Each player has one hero. The hero travels between fifteen cities, takes contracts, gathers and crafts materials, trades in markets and at the auction house, clears dungeons, fights armies and other heroes, and grows stronger with gear and powers.
 
@@ -42,6 +42,14 @@ This project is **the auction house and the limited-stock marketplace** (section
   - **Dungeon progress**: the next stage to fight.
   - **The city market stock** this player sees.
 - The hero is always in exactly one city.
+
+**Accounts and passwords**
+- A password has at least **8 characters**. Players who already have a shorter password can still sign in with it.
+- A player who forgot their password can ask for a reset by email. The email holds a link that is valid for **10 minutes** and works **once**.
+- An account can receive **one** reset email per day (24 hours from the last one sent).
+- Asking for a reset never tells whether an email has an account.
+- Changing the password signs the player out everywhere else. The game, hero and progress are not touched.
+- A player who signed up with Google can also reset their password. Afterwards they can sign in either with the password or with Google.
 
 **Travelling**
 - The hero needs at least the city's **required level**.
