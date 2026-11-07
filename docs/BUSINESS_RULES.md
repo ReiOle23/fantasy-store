@@ -332,6 +332,7 @@ How a trip works:
   - +1 material kind per gathering trip;
   - +1 unit in the collection mini-game.
 - **Auction house and stable** exist only in cities with a required level of 20 or more.
+- **World map:** every city shows how many heroes are in it right now, bots included. Only the number is shown, never who they are.
 
 **Market**
 - Stock: `5 + city level` items.
