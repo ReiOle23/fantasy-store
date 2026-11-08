@@ -209,3 +209,5 @@ __marimo__/
 
 docker_volumes
 database_test.json
+# Trello card attachments downloaded by the trello-implement skill
+.trello-attachments/
