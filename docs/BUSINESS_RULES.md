@@ -1,9 +1,9 @@
 # Crown & Trade — Business Rules
 
 **Project:** Marketplace
-**Last reviewed:** 2026-11-08
+**Last reviewed:** 2026-11-09
 
-Crown & Trade is a fantasy trading and adventure game. Each player has one hero. The hero travels between fifteen cities, takes contracts, gathers and crafts materials, trades in markets and at the auction house, clears dungeons, fights armies and other heroes, and grows stronger with gear and powers.
+Crown & Trade is a fantasy trading and adventure game. Each player has up to three heroes and plays one at a time. A hero travels between fifteen cities, takes contracts, gathers and crafts materials, trades in markets and at the auction house, clears dungeons, fights armies and other heroes, and grows stronger with gear and powers.
 
 ## This project's role in the product
 
@@ -19,8 +19,8 @@ This project is **the auction house and the limited-stock marketplace** (section
 | Term | Meaning |
 |---|---|
 | **Player** | A person with an account. Signs in with an email and password or a Google account. |
-| **Game** | A player's save: their gold, power coins, tutorial progress and their own progress in every city. |
-| **Hero** | The single character a player controls. Has a class, a level, stats, an inventory and powers. |
+| **Game** | One hero's save: its gold, power coins, tutorial progress and its own progress in every city. A player has one game per hero. |
+| **Hero** | A character a player controls (up to three per player). Has a class, a level, stats, an inventory and powers. |
 | **Gold** | The main currency. Earned by playing and spent on items and services. |
 | **Power coins** | A rare in-game currency, earned at milestones and spent to unlock powers. |
 | **Conditions** | The hero's stamina, from 0 to 100. Contracts and travel spend it; food restores it. |
@@ -34,7 +34,9 @@ This project is **the auction house and the limited-stock marketplace** (section
 
 ### 2. Players, heroes and cities
 
-- A player has **one game**, and a game has **one hero**.
+- A player can have up to **3 heroes**. Each hero has its **own game**: a game has **one hero**.
+- A player's heroes are independent: gold, power coins, tutorial, city progress, inventory, letters and purchases belong to one hero and are never shared or moved between them.
+- After signing in, the player chooses which hero to play, or creates a new one while they have fewer than 3. They can switch hero at any time.
 - A hero name is **unique** in the whole world. It is also how other players see the hero, for example in auctions.
 - Hero classes: **knight**, **lancer** and **ranger**. Gender: male or female.
 - A new hero starts in **Dredfort** with the class's base stats, an empty inventory, and a market ready in that city.
@@ -669,7 +671,7 @@ How a trip works:
 | Horror of the night, Unicorn, Thunderbird | +100% speed | 2.99 each |
 | Great Fenix, Griffin, Pegasus | +150% speed | 4.99 each |
 
-- A purchase is delivered **once** after the payment is confirmed. Cancelled or expired payments deliver nothing.
+- A purchase belongs to the hero who made it and is delivered **once** after the payment is confirmed. Cancelled or expired payments deliver nothing.
 - Real money only buys cosmetics and travel speed, never power.
 
 ### 15. Auctions
