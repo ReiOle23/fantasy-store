@@ -72,4 +72,11 @@ test commands: use the copy of the repo you are working in.
    commit hash and branch pushed for each repo, and list the manual checks left for
    the human. Then ask whether to move the card to **Done**.
 
+**Trello attachments**: the user-level `~/.claude/settings.json` sets the env vars
+`TRELLO_API_KEY` and `TRELLO_TOKEN`. The Trello MCP only lists a card's attachments
+(`trelloReadCard`, `action: "list_attachments"`); use these vars to download them into
+`.trello-attachments/<shortLink>/` instead of asking the user:
+`curl -sL -H "Authorization: OAuth oauth_consumer_key=\"$TRELLO_API_KEY\", oauth_token=\"$TRELLO_TOKEN\"" "<attachment url>" -o .trello-attachments/<shortLink>/<file>`.
+Never print, echo or commit their values.
+
 Never use `--force` or `--no-verify`, and never commit secrets or `.trello-attachments/`.
