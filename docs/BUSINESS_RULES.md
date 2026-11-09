@@ -1,7 +1,7 @@
 # Crown & Trade — Business Rules
 
 **Project:** Marketplace
-**Last reviewed:** 2026-11-06
+**Last reviewed:** 2026-11-08
 
 Crown & Trade is a fantasy trading and adventure game. Each player has one hero. The hero travels between fifteen cities, takes contracts, gathers and crafts materials, trades in markets and at the auction house, clears dungeons, fights armies and other heroes, and grows stronger with gear and powers.
 
@@ -149,7 +149,17 @@ A tired hero sees longer mission times: shown time × `(2 − conditions/100)`.
 - One armour piece per slot, except **two amulets**. A third amulet replaces the oldest.
 - The item's level must not be higher than the hero's level.
 
-**Inventory:** 30 slots to start, more from level rewards.
+**Inventory:**
+- 30 slots to start, +5 at the level rewards (see 3).
+- Each unequipped weapon, armour piece or potion uses one slot. A stack of the same material uses one slot, whatever its quantity. Equipped items, mounts and skins use none.
+- Every item keeps its own slot. A new item goes to the first free slot. The player can move an item to another slot; if that slot holds an item, the two swap.
+- Filtering the inventory leaves every item in its slot and dims the ones that don't match.
+- When no slot is free:
+  - buying or crafting an item that needs a slot is refused, and nothing is spent;
+  - unequipping is refused;
+  - a reward item that doesn't fit is **lost**: contract and gathering rewards, dungeon and army loot, Mortorius, auction letters and level rewards. The player is warned before accepting. The rest of the reward (gold, XP, coins, record) is kept.
+- A hero with more items than slots keeps them all, but receives nothing that needs a slot until one is free.
+- Bots have no slot limit.
 
 **Durability:**
 - Item stats count in proportion to durability.
@@ -698,7 +708,7 @@ Each item is either a bug or a decision still to be made. None of them is a rule
 7. **PvP has no limits:** any hero can attack any other hero, at any level, at any time.
 8. **Hero stats on level-up** come out slightly off, and agility keeps adding up every level instead of following the table.
 9. **City experience:** after a city level-up, the extra experience is not counted correctly.
-10. **Not active yet:** mission time reduction, the Merfolk legendary-drop bonus, potions, the free power from level 17, and the inventory slot limit.
+10. **Not active yet:** mission time reduction, the Merfolk legendary-drop bonus, potions and the free power from level 17.
 11. **Abundance Day** doubles the trip's yield, but the collection mini-game ignores the double.
 12. **Endless fights:** if neither side can hurt the other, a fight has no turn limit.
 13. **Powers with no effect yet:** *wind walker* (double turn) and *quick draw* (guaranteed first critical). *Hunter's mark* currently gives its bonus on every attack.
