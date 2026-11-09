@@ -153,6 +153,7 @@ A tired hero sees longer mission times: shown time × `(2 − conditions/100)`.
 - 30 slots to start, +5 at the level rewards (see 3).
 - Each unequipped weapon, armour piece or potion uses one slot. A stack of the same material uses one slot, whatever its quantity. Equipped items, mounts and skins use none.
 - Every item keeps its own slot. A new item goes to the first free slot. The player can move an item to another slot; if that slot holds an item, the two swap.
+- The player can sort the inventory: every item is put one after the other from the first slot, in its current order, with no empty slot left between them.
 - Filtering the inventory leaves every item in its slot and dims the ones that don't match.
 - When no slot is free:
   - buying or crafting an item that needs a slot is refused, and nothing is spent;
