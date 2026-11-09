@@ -36,24 +36,40 @@ work done.
 When the user asks to implement/develop/build/do a Trello task or card
 ("implement trello task {card title}"), run these steps in order, without waiting
 for a new prompt between them. The same workflow is in the AGENTS.md of all three
-repos; keep it identical.
+repos; keep it identical. Each skill below exists in every repo with that repo's own
+test commands: use the copy of the repo you are working in.
 
-1. **Acceptance criteria**: run the `trello-acceptance-criteria` skill on the card.
-   If the acceptance file already exists for that card, reuse it instead of rewriting it.
+1. **Criteria and tests**: run the `write-tests` skill on the card. It writes the spec
+   `docs/acceptance/<shortLink>-<name>.txt`, posts the criteria to the card as a
+   checklist and a comment, writes the acceptance tests in every affected repo
+   (failing for the right reason), adds the COVERAGE table and makes one local
+   `test: add acceptance tests for <card name>` commit per repo, without pushing.
+   If the spec and that commit already exist for the card, reuse them instead of
+   rewriting them.
    - Stop and ask only if **CONFLICTS AND OPEN QUESTIONS** has anything other than
      "None". Those are product decisions. Continue once the user answers.
-2. **Implement**: run the `trello-implement` skill: the card's PNG/ZIP attachments,
-   code, tests in every affected repo, the checklist ticks and the result comment.
-3. **Commit and push**, only if all of this is true:
-   - every acceptance criterion is **PASS** (none FAIL or NOT VERIFIED), and
-   - the full test suites, type check and lint of every repo you touched are green.
+2. **Implement**: move the card to **Doing**, then run the `implement` skill
+   with the spec: the card's PNG/ZIP attachments and the minimal code, backend repos
+   first, until the task's tests pass. It never edits those tests.
+3. **Verify**: run the `verify` skill on the spec. It judges the work without fixing
+   it and gives a PASS/FAIL verdict per criterion.
+   - On FAIL, run `implement` again with verify's **TO FIX** list, then
+     `verify` again. After 2 failed rounds, stop and report.
+4. **Update the card**: tick the `Acceptance criteria` checklist items whose
+   criterion verify marked **PASS** (leave FAIL, NOT VERIFIED and MANUAL unticked),
+   and add a comment with verify's verdict, criteria table and manual checks.
+5. **Commit and push**, only if verify's verdict is **PASS**: every automated
+   criterion PASS (none FAIL or NOT VERIFIED), test integrity PASS, and the full test
+   suites, type check, lint and build of every repo you touched green.
 
    Then run the `commit-push` skill once per repo you touched, backend repos first
-   and `crown-trade-front` last. For this workflow, the user's request is the
-   confirmation to commit and push: don't ask again.
+   and `crown-trade-front` last; the push includes the `test:` commit from step 1.
+   For this workflow, the user's request is the confirmation to commit and push:
+   don't ask again.
    If any condition is false, don't commit or push. Report what fails or couldn't be
    verified and what is needed, and leave the card in **Doing**.
-4. **Report**: give the `trello-implement` final report and add the commit hash and
-   branch pushed for each repo. Then ask whether to move the card to **Done**.
+6. **Report**: give the `implement` summary and the `verify` verdict, add the
+   commit hash and branch pushed for each repo, and list the manual checks left for
+   the human. Then ask whether to move the card to **Done**.
 
 Never use `--force` or `--no-verify`, and never commit secrets or `.trello-attachments/`.
