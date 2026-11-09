@@ -29,6 +29,7 @@ This project is **the auction house and the limited-stock marketplace** (section
 | **Dungeon** | A chain of fights in a city, 10 stages deep, with more beyond. |
 | **Army** | One of six enemy armies. It can only be fought while it attacks a city. |
 | **Mortorius** | A legendary creature that shows up 1 time in 100 after a contract fight or a dungeon stage. |
+| **Framan** | A three-headed legendary creature that shows up 1 time in 100 after a contract fight or a dungeon stage, when Mortorius does not. |
 | **World event** | A 5-day situation in one city: a festival, high taxes, a war, and so on. |
 | **Bot** | A hero run by the game itself. Bots fill rankings and tournaments. |
 
@@ -415,6 +416,13 @@ How a trip works:
   - **Killing it gives +5 power coins** and 1 legendary weapon or armour piece at the hero's level (a weapon one time in three). This comes on top of the contract's rewards.
   - Losing to it gives none of its rewards; the contract's rewards are kept.
   - The fight has its own report letter.
+- **Framan, the three-headed legendary creature:**
+  - 1 time in 100, after a **won** contract fight in which Mortorius did not appear, the hero must also fight Framan. At most one legendary creature follows a contract. It never shows up in gathering trips, army runs or PvP.
+  - It is at the contract enemy's level and as strong as a legendary contract enemy.
+  - Its power is **withering wail** (see 11).
+  - **Killing it gives +5 power coins** and 1 legendary weapon or armour piece at the hero's level (a weapon one time in three). This comes on top of the contract's rewards.
+  - Losing to it gives none of its rewards; the contract's rewards are kept.
+  - The fight has its own report letter.
 
 **Gathering trips:** see 6. **Travel:** see 2.
 
@@ -519,7 +527,7 @@ How a trip works:
 - each dungeon stage cleared;
 - each full army run (10 kills);
 - winning a tournament;
-- killing Mortorius (+5, see 9 and 12).
+- killing Mortorius or Framan (+5, see 9 and 12).
 
 | Tree | Power | Kind | Cost | Effect |
 |---|---|---|---|---|
@@ -571,6 +579,7 @@ How a trip works:
 - Enemies and army soldiers have their own powers, for example dirty trick, war cry, bloodlust, skull crusher, orcish rage, troll regeneration, avalanche, rending claws, pack howl, corpse feast, paralyzing touch, hex, cauldron brew, reassemble, bone shield, stone skin, earthquake, lost in the maze, escalating fury, unstable mutation, galvanic shock, dragon breath, dragon scales, cursed oath, disarm, hellfire aura, infernal pact, soul drain and ethereal form.
 - Players cannot unlock them.
 - **Black attack** (Mortorius only): on its first turn the enemy's current life drops to half, rounded down and never below 1. Once per fight. Immunity powers do not block it.
+- **Withering wail** (Framan only, passive): each time the hero attacks Framan, the hero's next turn deals 50% less damage, every hit of it, normal attack or power. It never stacks (always −50%). Immunity powers block it.
 
 ### 12. Dungeons
 
@@ -587,6 +596,7 @@ How a trip works:
   - +1 power coin;
   - XP.
 - **Mortorius:** 1 time in 100 it waits after the stage boss, at the boss's level, with health and defence carried over. The stage is cleared by the stage enemies alone. Killing it gives the same rewards as after a contract (see 9) on top of the stage rewards.
+- **Framan:** when Mortorius does not wait after the boss, Framan does 1 time in 100, in the same way and with the same rewards (see 9). At most one legendary creature per run.
 - **City unlocks:** a city requires another city's dungeon to have been cleared at least once (see 7).
 
 | Dungeon | City | Enemies | Enemy levels |
