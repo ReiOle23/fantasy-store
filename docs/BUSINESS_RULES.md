@@ -1,7 +1,7 @@
 # Crown & Trade — Business Rules
 
 **Project:** Marketplace
-**Last reviewed:** 2026-11-09
+**Last reviewed:** 2026-11-10
 
 Crown & Trade is a fantasy trading and adventure game. Each player has up to three heroes and plays one at a time. A hero travels between fifteen cities, takes contracts, gathers and crafts materials, trades in markets and at the auction house, clears dungeons, fights armies and other heroes, and grows stronger with gear and powers.
 
@@ -30,6 +30,7 @@ This project is **the auction house and the limited-stock marketplace** (section
 | **Army** | One of six enemy armies. It can only be fought while it attacks a city. |
 | **Mortorius** | A legendary creature that shows up 1 time in 100 after a contract fight or a dungeon stage. |
 | **Framan** | A three-headed legendary creature that shows up 1 time in 100 after a contract fight or a dungeon stage, when Mortorius does not. |
+| **Gem** | A gemstone crafted at the Alchemist. Set into a weapon or armour piece, it adds one stat. |
 | **World event** | A 5-day situation in one city: a festival, high taxes, a war, and so on. |
 | **Bot** | A hero run by the game itself. Bots fill rankings and tournaments. |
 
@@ -140,6 +141,7 @@ A tired hero sees longer mission times: shown time × `(2 − conditions/100)`.
 | **Armour** | helmet, shoulders, chest, pants, boots, amulet | same as weapons |
 | **Material** | **food** (restores conditions) or **crafting** material; each has a trade (market, mining, fishing, herboristery, hunt) | quantity (same materials stack), price, conditions restored |
 | **Potion** | natural, elaborated, dark | lasts 2 hours once used. **Not in the game yet.** |
+| **Gem** | Ruby, Sapphire, Emerald, Topaz | rarity, stat, value, price, quantity (see "Gems" below) |
 | **Mount** | — | travel speed bonus; price in gold or real money |
 | **Skin** | hero look (legendary hero) or house (inventory background) | price in gold or real money |
 
@@ -154,7 +156,7 @@ A tired hero sees longer mission times: shown time × `(2 − conditions/100)`.
 
 **Inventory:**
 - 30 slots to start, +5 at the level rewards (see 3).
-- Each unequipped weapon, armour piece or potion uses one slot. A stack of the same material uses one slot, whatever its quantity. Equipped items, mounts and skins use none.
+- Each unequipped weapon, armour piece or potion uses one slot. A stack of the same material, or of gems of the same kind and rarity, uses one slot, whatever its quantity. Equipped items, mounts and skins use none.
 - Every item keeps its own slot. A new item goes to the first free slot. The player can move an item to another slot; if that slot holds an item, the two swap.
 - The player can sort the inventory: every item is put one after the other from the first slot, in its current order, with no empty slot left between them.
 - Filtering the inventory leaves every item in its slot and dims the ones that don't match.
@@ -176,6 +178,29 @@ A tired hero sees longer mission times: shown time × `(2 − conditions/100)`.
 - Maximum upgrades: normal 3, rare 4, legendary 5.
 - Upgrade number *n* uses *n* units of **each** material listed on the item.
 - Each upgrade adds **one new random bonus stat** the item does not have yet.
+
+**Gems (Alchemist, from level 41)**
+- The Alchemist workshop is in the alchemy cities (Shadowmere, Nightfall Citadel) and the capital. It has three tabs: create potion (coming soon), create gem and add gem.
+- Crafting a gem takes 1 of each of its three materials and no gold. Its rarity is rolled:
+
+  | Rarity | normal | rare | epic | legendary | divine |
+  |---|---|---|---|---|---|
+  | Chance | 35% | 30% | 20% | 10% | 5% |
+  | Tier | 1 | 2 | 3 | 4 | 5 |
+  | Price | 100 | 200 | 300 | 400 | 1000 |
+
+  | Gem | Colour | Materials | Stat |
+  |---|---|---|---|
+  | Ruby | red | garnet, lapis lazuli, coral | damage, tier × 45 |
+  | Sapphire | blue | amethyst, lapis lazuli, pearl | defence, tier × 45 |
+  | Emerald | green | emerald, obsidian, jet | health, tier × 45 |
+  | Topaz | yellow | tourmaline, obsidian, amber | critical, tier × 15 % |
+
+- A gem's value depends only on its rarity, never on the hero's level.
+- Crafting is refused, and nothing is spent, when a material is missing or no inventory slot is free.
+- Any gem can be set into any weapon or armour piece (amulets included), equipped or not, for free. An item holds one gem: setting a new one **destroys** the old one.
+- The gem's stat counts with the item's other stats, in proportion to its durability.
+- Gems can be sold (half price, like any item) and auctioned. An auctioned item keeps its gem.
 
 **Item stats**
 
@@ -266,14 +291,14 @@ A random stat from the pool, worth `small random base + random growth × L × ra
 
 | Trade | Materials |
 |---|---|
-| Mining | stone 5, copper 20, tin 25, iron 15, silver ore 30, gold ore 40, gems 200, obsidian 60 |
-| Fishing | herring 5 (+1), cod 10 (+2), pike 20 (+3), salmon 50 (+5), silica 40, gems 200 |
-| Herboristery | orange 10 (+1), apple 10 (+1), wood 20, bone 30, walnut wood 40, thread 40, gems 200 |
+| Mining | stone 5, copper 20, tin 25, iron 15, silver ore 30, gold ore 40, gems 200, obsidian 60, emerald 200, jet 200, amethyst 200, lapis lazuli 200, garnet 200, tourmaline 200 |
+| Fishing | herring 5 (+1), cod 10 (+2), pike 20 (+3), salmon 50 (+5), silica 40, gems 200, pearl 200, coral 200 |
+| Herboristery | orange 10 (+1), apple 10 (+1), wood 20, bone 30, walnut wood 40, thread 40, gems 200, amber 200 |
 | Hunt | wild boar 40 (+8), skins 25, deer meat 30 (+6), feather 20, bone 15 |
 | Market | rye bread 50 (+5), apple pie 40 (+5), roast poultry 50 (+7), feather 30, steel 30, fabric 30, leather 30, silk 30 |
 | Contract rewards | sunflower seeds 5, wheat 5, peas and beans 10, barley 8, wild boar 40 (+8), apple pie 40 (+5), cod 10 (+2) |
 
-- Cheap materials are common. Gems and obsidian are rare.
+- Cheap materials are common. Gems, obsidian and the gem materials (emerald, jet, amethyst, lapis lazuli, garnet, tourmaline, pearl, coral, amber) are rare: each gem material is at most as likely as gems.
 
 **Gathering trips**
 
@@ -346,6 +371,7 @@ How a trip works:
   - +1 material kind per gathering trip;
   - +1 unit in the collection mini-game.
 - **Auction house and stable** exist only in cities with a required level of 20 or more.
+- **Alchemist** exists only in the alchemy cities and the capital, for heroes of level 41 or more (see 4, Gems).
 - **World map:** every city shows how many heroes are in it right now, bots included. Only the number is shown, never who they are.
 
 **Market**
@@ -686,7 +712,7 @@ How a trip works:
 
 ### 15. Auctions
 
-- Heroes sell weapons, armour and materials to each other at the **auction house**.
+- Heroes sell weapons, armour, materials and gems to each other at the **auction house**.
 - **Listing an item:**
   - The seller picks a duration (24 hours by default) and an optional starting price (otherwise the item's price).
   - The item leaves the seller's inventory while the auction runs.

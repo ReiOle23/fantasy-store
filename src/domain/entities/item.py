@@ -5,7 +5,9 @@ import uuid
 WEAPON = "weapon"
 ARMOR = "armor"
 MATERIAL = "material"
-ITEM_TYPES = (WEAPON, ARMOR, MATERIAL)
+# Alchemy gemstones (card DufVAnUu): stacks of one kind and rarity
+GEM = "gem"
+ITEM_TYPES = (WEAPON, ARMOR, MATERIAL, GEM)
 
 ITEM_CATEGORIES = ("normal", "rare", "legendary")
 WEAPON_TYPES = ("bow", "crossbow", "lance", "lance_shield", "large_sword", "two_sword")
