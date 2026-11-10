@@ -180,6 +180,12 @@ A tired hero sees longer mission times: shown time × `(2 − conditions/100)`.
 - Upgrade number *n* uses *n* units of **each** material listed on the item.
 - Each upgrade adds **one new random bonus stat** the item does not have yet.
 
+**Gem slots (blacksmith, in the blacksmith cities and the capital)**
+- The Blacksmith of the blacksmith cities (Grimwald, Ashen City, Darkhelm) and the capital has a third section, gem slots, next to repair and upgrade.
+- A weapon or armour piece (amulets included), equipped or not, can get **one** gem slot for **2500 gold**. New items have none.
+- Buying is refused, and nothing is spent, when the item already has its gem slot or the hero has less than 2500 gold.
+- The gem slot stays with the item: equipping, unequipping, selling and auctioning keep it.
+
 **Gems (Alchemist, from level 41)**
 - The Alchemist workshop is in the alchemy cities (Shadowmere, Nightfall Citadel) and the capital. It has three tabs: create potion, create gem and add gem.
 - Crafting a gem takes 1 of each of its three materials and no gold. Its rarity is rolled:
@@ -199,7 +205,7 @@ A tired hero sees longer mission times: shown time × `(2 − conditions/100)`.
 
 - A gem's value depends only on its rarity, never on the hero's level.
 - Crafting is refused, and nothing is spent, when a material is missing or no inventory slot is free.
-- Any gem can be set into any weapon or armour piece (amulets included), equipped or not, for free. An item holds one gem: setting a new one **destroys** the old one.
+- Any gem can be set into any weapon or armour piece (amulets included) that has its **gem slot** (see Gem slots), equipped or not, for free. An item without a gem slot cannot hold a gem. An item holds one gem: setting a new one **destroys** the old one.
 - The gem's stat counts with the item's other stats, in proportion to its durability.
 - Gems can be sold (half price, like any item) and auctioned. An auctioned item keeps its gem.
 
@@ -398,6 +404,7 @@ How a trip works:
   - +1 unit in the collection mini-game.
 - **Auction house and stable** exist only in cities with a required level of 20 or more.
 - **Alchemist** exists only in the alchemy cities and the capital, for heroes of level 41 or more (see 4, Gems and Potions).
+- **Gem slots** are sold at the Blacksmith only in the blacksmith cities and the capital (see 4, Gem slots).
 - **World map:** every city shows how many heroes are in it right now, bots included. Only the number is shown, never who they are.
 
 **Market**
@@ -702,6 +709,7 @@ How a trip works:
 - buying;
 - restocking the market;
 - repairs;
+- gem slots (2500 each);
 - dungeon entry;
 - gold mounts and skins;
 - auction bids.
