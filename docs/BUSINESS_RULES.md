@@ -31,6 +31,7 @@ This project is **the auction house and the limited-stock marketplace** (section
 | **Mortorius** | A legendary creature that shows up 1 time in 100 after a contract fight or a dungeon stage. |
 | **Framan** | A three-headed legendary creature that shows up 1 time in 100 after a contract fight or a dungeon stage, when Mortorius does not. |
 | **Gem** | A gemstone crafted at the Alchemist. Set into a weapon or armour piece, it adds one stat. |
+| **Potion** | A brew crafted at the Alchemist. Drunk, it boosts one stat (a dark potion also lowers another) for the hero's next battle. |
 | **World event** | A 5-day situation in one city: a festival, high taxes, a war, and so on. |
 | **Bot** | A hero run by the game itself. Bots fill rankings and tournaments. |
 
@@ -140,7 +141,7 @@ A tired hero sees longer mission times: shown time × `(2 − conditions/100)`.
 | **Weapon** | bow, crossbow, lance, lance with shield, large sword, twin swords | level, rarity, price, durability (0–100%), upgrades, stats, upgrade materials, collection set |
 | **Armour** | helmet, shoulders, chest, pants, boots, amulet | same as weapons |
 | **Material** | **food** (restores conditions) or **crafting** material; each has a trade (market, mining, fishing, herboristery, hunt) | quantity (same materials stack), price, conditions restored |
-| **Potion** | natural, elaborated, dark | lasts 2 hours once used. **Not in the game yet.** |
+| **Potion** | natural, elaborated, dark | rarity, effects, price, quantity; lasts one battle once drunk (see "Potions" below) |
 | **Gem** | Ruby, Sapphire, Emerald, Topaz | rarity, stat, value, price, quantity (see "Gems" below) |
 | **Mount** | — | travel speed bonus; price in gold or real money |
 | **Skin** | hero look (legendary hero) or house (inventory background) | price in gold or real money |
@@ -156,7 +157,7 @@ A tired hero sees longer mission times: shown time × `(2 − conditions/100)`.
 
 **Inventory:**
 - 30 slots to start, +5 at the level rewards (see 3).
-- Each unequipped weapon, armour piece or potion uses one slot. A stack of the same material, or of gems of the same kind and rarity, uses one slot, whatever its quantity. Equipped items, mounts and skins use none.
+- Each unequipped weapon or armour piece uses one slot. A stack of the same material, or of gems or potions of the same kind and rarity, uses one slot, whatever its quantity. Equipped items, mounts and skins use none.
 - Every item keeps its own slot. A new item goes to the first free slot. The player can move an item to another slot; if that slot holds an item, the two swap.
 - The player can sort the inventory: every item is put one after the other from the first slot, in its current order, with no empty slot left between them.
 - Filtering the inventory leaves every item in its slot and dims the ones that don't match.
@@ -180,7 +181,7 @@ A tired hero sees longer mission times: shown time × `(2 − conditions/100)`.
 - Each upgrade adds **one new random bonus stat** the item does not have yet.
 
 **Gems (Alchemist, from level 41)**
-- The Alchemist workshop is in the alchemy cities (Shadowmere, Nightfall Citadel) and the capital. It has three tabs: create potion (coming soon), create gem and add gem.
+- The Alchemist workshop is in the alchemy cities (Shadowmere, Nightfall Citadel) and the capital. It has three tabs: create potion, create gem and add gem.
 - Crafting a gem takes 1 of each of its three materials and no gold. Its rarity is rolled:
 
   | Rarity | normal | rare | epic | legendary | divine |
@@ -201,6 +202,31 @@ A tired hero sees longer mission times: shown time × `(2 − conditions/100)`.
 - Any gem can be set into any weapon or armour piece (amulets included), equipped or not, for free. An item holds one gem: setting a new one **destroys** the old one.
 - The gem's stat counts with the item's other stats, in proportion to its durability.
 - Gems can be sold (half price, like any item) and auctioned. An auctioned item keeps its gem.
+
+**Potions (Alchemist, from level 41)**
+- Potions are crafted in the Alchemist's create potion tab, from the ingredients below and no gold. They are only crafted: they never drop and markets don't sell them.
+- The rarity is rolled when crafting: normal 94% (×1), rare 5% (×1.5), legendary 1% (×2). Rarity multiplies the boost only, never the malus of a dark potion nor the price.
+
+  | Potion | Tier | Effect (normal) | Ingredients | Price |
+  |---|---|---|---|---|
+  | Orchard Tonic | natural | health +5% | 3 apple, 2 orange, 1 salmon | 120 |
+  | Barkskin Brew | natural | defence +5% | 2 wood, 2 bone | 120 |
+  | Hunter's Broth | natural | damage +5% | 1 wild boar, 2 deer meat | 120 |
+  | Hawkeye Draught | natural | critical +5% | 3 feather, 2 pike | 120 |
+  | Salmon Elixir | elaborated | health +10% | 1 glass, 2 salmon, 1 apple pie | 432 |
+  | Ironbark Elixir | elaborated | defence +10% | 1 glass, 2 walnut wood, 1 steel | 444 |
+  | Bloodfire Elixir | elaborated | damage +10% | 1 glass, 2 wild boar, 1 bronze | 444 |
+  | Silver Eye Elixir | elaborated | critical +10% | 1 glass, 2 feather, 1 silver ingot | 468 |
+  | Wrath of Obsidian | dark | damage +20%, defence −10% | 1 glass, 1 obsidian, 1 garnet, 2 bone | 648 |
+  | Shroud of Jet | dark | defence +20%, damage −10% | 1 glass, 1 obsidian, 1 jet, 1 leather | 732 |
+  | Pearl of the Drowned | dark | health +20%, critical −10% | 1 glass, 1 obsidian, 1 pearl, 2 salmon | 696 |
+  | Amber Madness | dark | critical +20%, health −10% | 1 glass, 1 obsidian, 1 amber, 3 feather | 648 |
+
+- Price = 1.2 × the value of the ingredients, whatever the rarity. Potions sell at half price, like any item, and cannot be auctioned.
+- Crafting is refused, and nothing is spent, when an ingredient is missing or no inventory slot is free (a potion that joins its stack needs no new slot).
+- The hero can drink a potion anywhere; it uses one of the stack. Its % multiplies the hero's total strength (class stats, items and sets), for example +10% damage = damage × 1.10, critical included (10% → 11%).
+- **A potion lasts one battle:** the hero's next contract fight (and Mortorius or Framan after it), dungeon stage run or army run, won or lost. Afterwards every active potion is gone. PvP fights and tournaments neither use nor remove them.
+- One active potion per stat: a potion that boosts a stat already boosted by an active potion is refused. A dark potion only takes up the stat it boosts. Effects on the same stat add up.
 
 **Item stats**
 
@@ -371,7 +397,7 @@ How a trip works:
   - +1 material kind per gathering trip;
   - +1 unit in the collection mini-game.
 - **Auction house and stable** exist only in cities with a required level of 20 or more.
-- **Alchemist** exists only in the alchemy cities and the capital, for heroes of level 41 or more (see 4, Gems).
+- **Alchemist** exists only in the alchemy cities and the capital, for heroes of level 41 or more (see 4, Gems and Potions).
 - **World map:** every city shows how many heroes are in it right now, bots included. Only the number is shown, never who they are.
 
 **Market**
@@ -467,7 +493,7 @@ How a trip works:
 | Army run | random army soldiers | "in dungeons" bonuses | yes | dungeon stage, at 10 kills |
 
 **Before the first turn**
-1. Each side's strength is set: class stats, gear (by durability) and set bonuses.
+1. Each side's strength is set: class stats, gear (by durability) and set bonuses. Against the game's enemies, the hero's active potions then multiply it (see 4, Potions).
 2. Situational health and defence bonuses apply.
 3. Always-on powers apply, for example +30% defence.
 4. **Initiative:** the side with more agility acts first. The hero wins ties.
@@ -747,7 +773,7 @@ Each item is either a bug or a decision still to be made. None of them is a rule
 7. **PvP has no limits:** any hero can attack any other hero, at any level, at any time.
 8. **Hero stats on level-up** come out slightly off, and agility keeps adding up every level instead of following the table.
 9. **City experience:** after a city level-up, the extra experience is not counted correctly.
-10. **Not active yet:** mission time reduction, the Merfolk legendary-drop bonus, potions and the free power from level 17.
+10. **Not active yet:** mission time reduction, the Merfolk legendary-drop bonus and the free power from level 17.
 11. **Abundance Day** doubles the trip's yield, but the collection mini-game ignores the double.
 12. **Endless fights:** if neither side can hurt the other, a fight has no turn limit.
 13. **Powers with no effect yet:** *wind walker* (double turn) and *quick draw* (guaranteed first critical). *Hunter's mark* currently gives its bonus on every attack.
