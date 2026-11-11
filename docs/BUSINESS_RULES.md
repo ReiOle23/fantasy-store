@@ -462,7 +462,7 @@ How a trip works:
   - the hero is within **10 levels** of the contract;
   - the contract is still on the board.
 - **How it plays out:**
-  - The fight is decided the moment the contract is accepted. The hero comes back a few seconds later.
+  - The fight is decided the moment the contract is accepted. The hero comes back a few seconds later from a casual or unusual contract, 30–60 seconds later from an epic one and 3–5 minutes later from a legendary one.
   - **Win:** gold, XP, item and record updates.
   - **Loss:** no rewards.
   - Either way: a report letter and the city experience.
