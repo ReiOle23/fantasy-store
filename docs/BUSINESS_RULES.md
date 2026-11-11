@@ -144,7 +144,7 @@ A tired hero sees longer mission times: shown time × `(2 − conditions/100)`.
 | **Potion** | natural, elaborated, dark | rarity, effects, price, quantity; lasts one battle once drunk (see "Potions" below) |
 | **Gem** | Ruby, Sapphire, Emerald, Topaz | rarity, stat, value, price, quantity (see "Gems" below) |
 | **Mount** | — | travel speed bonus; price in gold or real money |
-| **Skin** | hero look (legendary hero) or house (inventory background) | price in gold or real money |
+| **Skin** | hero look (legendary hero or a class skin) or house (inventory background) | price in gold or real money |
 
 **Rarity:**
 - Item rarities: **normal**, **rare**, **legendary**.
@@ -737,11 +737,16 @@ How a trip works:
 | Item | Effect | Price |
 |---|---|---|
 | Legendary Hero skin | hero look | 4.99 |
+| Samurai skin | knight hero look | 2.95 |
+| Arhem skin | lancer hero look | 2.95 |
+| Almogavar skin | ranger hero look | 2.95 |
 | Noble House | house skin | 2.99 |
 | King House | house skin | 4.99 |
 | Horror of the night, Unicorn, Thunderbird | +100% speed | 2.99 each |
 | Great Fenix, Griffin, Pegasus | +150% speed | 4.99 each |
 
+- A class hero skin (Samurai, Arhem, Almogavar) is only sold to and worn by heroes of its class, and it shows in the hero's gender.
+- A hero wears one hero look at a time: the classic look, the Legendary Hero or a class skin.
 - A purchase belongs to the hero who made it and is delivered **once** after the payment is confirmed. Cancelled or expired payments deliver nothing.
 - Real money only buys cosmetics and travel speed, never power.
 
