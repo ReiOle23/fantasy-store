@@ -188,7 +188,7 @@ A tired hero sees longer mission times: shown time × `(2 − conditions/100)`.
 - The gem slot stays with the item: equipping, unequipping, selling and auctioning keep it.
 
 **Gems (Alchemist, from level 41)**
-- The Alchemist workshop is in the alchemy cities (Shadowmere, Nightfall Citadel) and the capital. It has three tabs: create potion, create gem and add gem.
+- The Alchemist workshop is in the alchemy cities (Shadowmere, Nightfall Citadel) and the capital. It has three tabs: create potion, create gem and socket gem.
 - Crafting a gem takes 1 of each of its three materials and no gold. Its rarity is rolled:
 
   | Rarity | normal | rare | epic | legendary | divine |
