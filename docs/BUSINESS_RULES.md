@@ -173,7 +173,8 @@ A tired hero sees longer mission times: shown time × `(2 − conditions/100)`.
 - After every fight against the game's enemies (contracts, dungeons, armies; not PvP):
   - the weapon loses `turns ÷ 2` durability, at most 10;
   - each armour piece loses `share of life lost × 10`.
-- Repairing all equipped items costs, per item, `(missing durability %) × price ÷ 2` gold.
+- The blacksmith repairs one weapon or armour piece, equipped or in the backpack, for `(missing durability %) × price ÷ 2` gold. An intact item (100%) can't be repaired, and nothing is spent without enough gold.
+- **Repair all** repairs every equipped item and costs the sum of their repairs.
 
 **Upgrades (blacksmith, from level 10)**
 - Maximum upgrades: normal 3, rare 4, legendary 5.
