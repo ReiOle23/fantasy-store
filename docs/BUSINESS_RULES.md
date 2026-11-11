@@ -61,7 +61,7 @@ This project is **the auction house and the limited-stock marketplace** (section
 - The hero needs at least the city's **required level**.
 - The hero must have cleared the **dungeon the city requires** at least once (see 12).
 - Travel costs **5 conditions**.
-- Travel time is 18 seconds, shortened by a mount: `18 s / (1 + mount speed %)`.
+- Travel time is 5 minutes, shortened by a mount: `5 min / (1 + mount speed %)`.
 - Arriving renews the market stock and clears the hero's unaccepted contracts in the city they left.
 
 ### 3. Hero progression
