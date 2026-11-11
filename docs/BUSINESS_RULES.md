@@ -435,6 +435,7 @@ How a trip works:
 **Contract board**
 - Each city has **one board shared by all players**. It holds 50 contracts, or 16 under King Penalty.
 - The board refills every 5 minutes. The first hero to accept a contract takes it.
+- **Starting city:** after every refill, Dredfort's board holds at least 10–20 contracts of level 1–2 (a new random number each time, at most the board size). If it has fewer, higher contracts are swapped for beginner ones.
 - **Contract types:**
 
   | Chance | Type | Reward |
