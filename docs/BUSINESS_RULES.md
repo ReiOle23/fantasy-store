@@ -132,6 +132,22 @@ A tired hero sees longer mission times: shown time × `(2 − conditions/100)`.
 | Battle-Hardened | 50 dungeon stages and 250 kills | 5000 | 15000 |
 | Merchant's Fortune / Itinerant Merchant / Trader's Triumph / Monopoly Master | earn 1k / 10k / 50k / 100k gold | 0 | 100 / 500 / 1000 / 5000 |
 
+**Daily rewards**
+- Every day each hero can collect up to **6 daily rewards**. The day resets at **00:00 UTC**; rewards not collected by then are lost.
+
+| Reward | Unlocked by | Gives |
+|---|---|---|
+| Daily login | playing the hero that day | 50 gold |
+| First mission | the hero's first contract (won or lost) or gathering trip that ends that day; travel does not count | 100 gold |
+| Hunt gift | a hunt gathering trip that ends that day | 1 apple pie |
+| Mining gift | a mining gathering trip that ends that day | 1 random common mining material: stone, copper, tin, iron, silver ore or gold ore |
+| Herboristery gift | a herboristery gathering trip that ends that day | 1 random common herboristery material: orange, apple, wood, bone, walnut wood or thread |
+| Fishing gift | a fishing gathering trip that ends that day | 1 random common fishing material: herring, cod, pike, salmon or silica |
+
+- The player collects each unlocked reward once a day. Gifts never give gems, obsidian or gem materials; each common material has the same chance.
+- A gift that needs a free inventory slot when none is free is refused and stays collectable until the reset.
+- Daily rewards belong to one hero and are never shared between a player's heroes.
+
 **Rankings:** heroes can be ranked by level, gold earned, missions, PvP wins, or dungeon progress in a chosen city. Bots appear in the rankings.
 
 ### 4. Items
@@ -704,6 +720,7 @@ How a trip works:
 - selling (half price, or full price for the valued trade, then event modifiers);
 - level-ups;
 - challenges;
+- daily rewards;
 - tournaments;
 - auction sales.
 
@@ -721,6 +738,7 @@ How a trip works:
 **Bots:**
 - A new bot hero appears every 4 hours.
 - Bots gain levels, gold, gear (better rarity at higher levels), a power from level 20, and dungeon progress over time, at a pace similar to a player doing contracts.
+- From level 60, bots slow down to about one level a month.
 
 **Gold cosmetics:**
 
