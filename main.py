@@ -24,6 +24,8 @@ app.add_middleware(
         "https://crownandtrade.com",
         "https://www.crownandtrade.com",
         "http://localhost:8100",
+        # Android app (Capacitor serves the WebView from this origin)
+        "https://localhost",
     ],
     allow_credentials=True,
     allow_methods=["*"],
