@@ -532,7 +532,7 @@ How a trip works:
    - **Stunned:** loses the turn.
    - **Disoriented:** hits itself.
    - **Silenced:** cannot use its active power this turn.
-5. If its **active power** is due this turn, it uses it. A power marked "every N turns" fires on turns 1, N+1, 2N+1, ….
+5. If its **active power** is due this turn, it uses it. A power marked "every N turns" fires on turns 1, N+1, 2N+1, …. A power that deals its own hits replaces the normal attack; a power that only applies an effect (a stun, an evade, a buff) is followed by the normal attack.
 6. Otherwise it makes a **normal attack**.
 7. The defender may **counter-attack** (counter thrust).
 8. A **burning** defender loses 5% of (health + defence), reduced by fire protection.
@@ -629,14 +629,14 @@ How a trip works:
 | Knight | suicide knife ★ | active | 15 | both sides lose half their life, enemy stunned (opening) |
 | Lancer | lance and shield | passive | 8 | +30% defence |
 | Lancer | phalanx stance | passive | 5 | +5% defence stacking each turn |
-| Lancer | counter thrust | passive | 10 | 15% chance to counter a melee hit |
+| Lancer | counter thrust | passive | 10 | 15% chance to answer a melee hit with a free normal attack (melee only) |
 | Lancer | unbreakable | passive | 8 | immune to negative states for the first 2 turns |
 | Lancer | protector shield ★ | passive | 15 | immune to all negative states |
 | Lancer | cleric's blessing ★ | passive | 15 | +50% life |
 | Lancer | impenetrable wall ★ | passive | 10 | +20% damage and +20% defence |
 | Lancer | shield strike | active | 5 | stun, every 3 turns |
 | Lancer | large lance | active | 10 | 20% stun chance every turn |
-| Lancer | phalanx formation | active | 15 | +50% defence and reflects 30% for 3 turns |
+| Lancer | phalanx formation | active | 15 | every 3 turns, for its owner's next 3 turns: +50% defence and 30% of each hit taken is sent back to the attacker |
 | Lancer | spear throw | active | 10 | ranged hit ignoring half the defence, every 2 turns |
 | Lancer | crusader's charge | active | 10 | 150% hit with 40% stun chance, every 4 turns |
 | Ranger | ember veil | passive | 8 | 25% frozen protection |
@@ -650,7 +650,7 @@ How a trip works:
 | Ranger | Harid's camouflage | active | 5 | evades the next hit, every 3 turns |
 | Ranger | imperial crossbow ★ | active | 15 | three hits (full, ⅓, ⅕), every 3 turns |
 | Ranger | arrow of the death ★ | active | 20 | the enemy dies in 5 turns (opening) |
-| Ranger | large bow ★ | active | 15 | +100% critical, every 2 turns |
+| Ranger | large bow ★ | active | 15 | +100% critical for that turn's attack, every 2 turns |
 
 **Enemy-only powers:**
 - Enemies and army soldiers have their own powers, for example dirty trick, war cry, bloodlust, skull crusher, orcish rage, troll regeneration, avalanche, rending claws, pack howl, corpse feast, paralyzing touch, hex, cauldron brew, reassemble, bone shield, stone skin, earthquake, lost in the maze, escalating fury, unstable mutation, galvanic shock, dragon breath, dragon scales, cursed oath, disarm, hellfire aura, infernal pact, soul drain and ethereal form.
@@ -809,4 +809,3 @@ Each item is either a bug or a decision still to be made. None of them is a rule
 10. **Not active yet:** mission time reduction, the Merfolk legendary-drop bonus and the free power from level 17.
 11. **Abundance Day** doubles the trip's yield, but the collection mini-game ignores the double.
 12. **Endless fights:** if neither side can hurt the other, a fight has no turn limit.
-13. **Powers with no effect yet:** *wind walker* (double turn) and *quick draw* (guaranteed first critical). *Hunter's mark* currently gives its bonus on every attack.
