@@ -148,7 +148,7 @@ A tired hero sees longer mission times: shown time × `(2 − conditions/100)`.
 - A gift that needs a free inventory slot when none is free is refused and stays collectable until the reset.
 - Daily rewards belong to one hero and are never shared between a player's heroes.
 
-**Rankings:** heroes can be ranked by level, gold earned, missions, PvP wins, or dungeon progress in a chosen city. Bots appear in the rankings.
+**Rankings:** heroes are ranked by level by default (ties go to the hero with more gold earned). They can also be ranked by gold earned, missions, PvP wins, or dungeons: dungeon progress in a chosen city, or dungeons completed across all cities. The city only applies to the dungeon ranking. A hero's position is always its place in the whole ranking: searching for a hero filters the list but never renumbers it. A player can see where their own hero stands and jump to it. Bots appear in the rankings.
 
 ### 4. Items
 
